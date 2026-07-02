@@ -339,6 +339,39 @@ body {
 }
 
 /* ============================================
+   ENCABEZADOS DE SECCIONES
+   ============================================ */
+
+.encabezado-seccion,
+.encabezado-consejos,
+.encabezado-contacto {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.icono-seccion,
+.icono-consejos,
+.icono-titulo-seccion {
+  width: clamp(68px, 16vw, 82px);
+  min-width: clamp(68px, 16vw, 82px);
+  height: auto;
+  display: block;
+}
+
+.encabezado-seccion h2,
+.encabezado-consejos h2,
+.encabezado-contacto h2 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(1.18rem, 5.1vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+/* ============================================
    SECCIÓN SERVICIOS
    ============================================ */
 
@@ -347,29 +380,6 @@ body {
   padding: clamp(34px, 6vh, 48px) clamp(24px, 7vw, 34px) clamp(40px, 7vh, 56px);
   background: var(--blanco);
   scroll-margin-top: clamp(92px, 14vh, 112px);
-}
-
-.encabezado-seccion {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 30px;
-}
-
-.icono-seccion {
-  width: clamp(68px, 16vw, 82px);
-  min-width: clamp(68px, 16vw, 82px);
-  height: auto;
-  display: block;
-}
-
-.encabezado-seccion h2 {
-  margin: 0;
-  color: var(--texto-oscuro);
-  font-size: clamp(1.18rem, 5.1vw, 1.55rem);
-  font-weight: 800;
-  line-height: 1.05;
-  white-space: nowrap;
 }
 
 /* LISTADO DE SERVICIOS */
@@ -595,29 +605,6 @@ body {
   scroll-margin-top: clamp(92px, 14vh, 112px);
 }
 
-.encabezado-consejos {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 36px;
-}
-
-.icono-consejos {
-  width: clamp(68px, 16vw, 82px);
-  min-width: clamp(68px, 16vw, 82px);
-  height: auto;
-  display: block;
-}
-
-.encabezado-consejos h2 {
-  margin: 0;
-  color: var(--texto-oscuro);
-  font-size: clamp(1.18rem, 5.1vw, 1.55rem);
-  font-weight: 800;
-  line-height: 1.05;
-  white-space: nowrap;
-}
-
 .lista-consejos {
   display: flex;
   flex-direction: column;
@@ -692,29 +679,6 @@ body {
   scroll-margin-top: clamp(92px, 14vh, 112px);
 }
 
-.encabezado-contacto {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 42px;
-}
-
-.icono-titulo-seccion {
-  width: clamp(68px, 16vw, 82px);
-  min-width: clamp(68px, 16vw, 82px);
-  height: auto;
-  display: block;
-}
-
-.encabezado-contacto h2 {
-  margin: 0;
-  color: var(--texto-oscuro);
-  font-size: clamp(1.35rem, 6vw, 1.75rem);
-  font-weight: 800;
-  line-height: 1.05;
-  white-space: nowrap;
-}
-
 .lista-contacto {
   display: flex;
   flex-direction: column;
@@ -781,27 +745,27 @@ body {
   width: 100%;
   background: var(--texto-oscuro);
   border-radius: 18px 18px 0 0;
-  padding: 28px clamp(24px, 7vw, 34px) 34px;
+  padding: 22px clamp(24px, 7vw, 34px) 24px;
 }
 
 .footer-superior {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: nowrap;
 }
 
 .footer-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   flex: 0 0 auto;
 }
 
 .icono-footer-logo {
-  width: clamp(46px, 12vw, 58px);
-  min-width: clamp(46px, 12vw, 58px);
+  width: clamp(44px, 11vw, 54px);
+  min-width: clamp(44px, 11vw, 54px);
   height: auto;
   display: block;
 }
@@ -809,13 +773,13 @@ body {
 .footer-texto-logo {
   display: flex;
   flex-direction: column;
-  line-height: 0.95;
+  line-height: 0.94;
 }
 
 .marca-footer-linea-uno,
 .marca-footer-linea-dos {
   display: block;
-  font-size: clamp(0.9rem, 3.9vw, 1.16rem);
+  font-size: clamp(0.82rem, 3.5vw, 1.05rem);
   font-weight: 800;
   letter-spacing: 0.2px;
 }
@@ -832,31 +796,31 @@ body {
 .frase-footer {
   margin: 0;
   color: var(--blanco);
-  font-size: clamp(0.74rem, 3.2vw, 0.95rem);
+  font-size: clamp(0.68rem, 3vw, 0.88rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.05;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 7px;
+  gap: 4px;
   text-align: right;
   white-space: nowrap;
   flex: 1;
 }
 
 .icono-corazon-footer {
-  width: clamp(28px, 7vw, 36px);
-  min-width: clamp(28px, 7vw, 36px);
+  width: clamp(24px, 6vw, 32px);
+  min-width: clamp(24px, 6vw, 32px);
   height: auto;
   display: block;
 }
 
 .footer-redes {
-  margin-top: 30px;
+  margin-top: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 26px;
 }
 
 .footer-redes a {
@@ -867,8 +831,8 @@ body {
 }
 
 .icono-red-footer {
-  width: clamp(64px, 16vw, 78px);
-  min-width: clamp(64px, 16vw, 78px);
+  width: clamp(58px, 15vw, 72px);
+  min-width: clamp(58px, 15vw, 72px);
   height: auto;
   display: block;
 }
@@ -1039,7 +1003,6 @@ body {
 
   .boton-whatsapp .icono-boton {
     width: 32px;
-    min-width: 32px;
   }
 
   .imagen-mascota {
@@ -1101,7 +1064,6 @@ body {
 
   .boton-whatsapp .icono-boton {
     width: 32px;
-    min-width: 32px;
   }
 
   .imagen-mascota {
@@ -1233,43 +1195,44 @@ body {
   }
 
   .footer-mi-amigo {
-    padding: 24px 22px 30px;
+    padding: 20px 22px 24px;
   }
 
   .footer-superior {
-    gap: 8px;
+    gap: 6px;
   }
 
   .footer-logo {
-    gap: 8px;
+    gap: 5px;
   }
 
   .icono-footer-logo {
-    width: 42px;
-    min-width: 42px;
+    width: 40px;
+    min-width: 40px;
   }
 
   .marca-footer-linea-uno,
   .marca-footer-linea-dos {
-    font-size: 0.78rem;
+    font-size: 0.74rem;
   }
 
   .frase-footer {
-    font-size: 0.66rem;
-    gap: 5px;
+    font-size: 0.62rem;
+    gap: 3px;
   }
 
   .icono-corazon-footer {
-    width: 22px;
-    min-width: 22px;
+    width: 20px;
+    min-width: 20px;
   }
 
   .footer-redes {
-    gap: 24px;
+    margin-top: 16px;
+    gap: 22px;
   }
 
   .icono-red-footer {
-    width: 58px;
-    min-width: 58px;
+    width: 56px;
+    min-width: 56px;
   }
 }
