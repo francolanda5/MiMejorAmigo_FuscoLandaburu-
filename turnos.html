@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Mejor Amigo - Sacar turno</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="css/turnos.css">
+</head>
+
+<body>
+
+    <main class="pagina-reserva-turno">
+
+        <!-- PASO 1: QUIÉN SACA EL TURNO -->
+        <section id="paso-uno" class="paso-turno" aria-labelledby="titulo-paso-uno">
+
+            <header class="encabezado-pantalla">
+                <a href="inicio.html" class="boton-volver" aria-label="Volver al inicio">‹</a>
+                <h1 id="titulo-paso-uno">¿Quien saca el turno?</h1>
+                <span class="espacio-encabezado" aria-hidden="true"></span>
+            </header>
+
+            <p class="texto-intro-turno">
+                Completá tus datos para continuar con la reserva del turno.
+            </p>
+
+            <form id="form-datos-persona" class="formulario-turno" novalidate>
+
+                <section class="bloque-formulario" aria-labelledby="titulo-tus-datos">
+                    <h2 id="titulo-tus-datos">Tus datos</h2>
+
+                    <fieldset class="grupo-campos">
+                        <legend class="texto-oculto">Datos personales</legend>
+
+                        <label for="nombre_apellido" class="texto-oculto">Nombre y apellido</label>
+                        <input type="text" id="nombre_apellido" name="nombre_apellido"
+                            placeholder="Nombre y apellido" autocomplete="name" required>
+
+                        <label for="correo" class="texto-oculto">Correo electrónico</label>
+                        <input type="email" id="correo" name="correo" placeholder="Correo electrónico"
+                            autocomplete="email" required>
+
+                        <label for="telefono" class="texto-oculto">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" autocomplete="tel"
+                            required>
+                    </fieldset>
+
+                    <p id="mensaje-error-datos" class="mensaje-error" aria-live="polite"></p>
+                </section>
+
+                <aside class="aviso-privacidad">
+                    <p>Estos datos se usarán únicamente para tu turno. No los compartimos a terceros.</p>
+                </aside>
+
+                <button type="submit" class="boton-principal">
+                    Continuar
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- PASO 2: SACAR TURNO -->
+        <section id="paso-dos" class="paso-turno" aria-labelledby="titulo-paso-dos" hidden>
+
+            <header class="encabezado-pantalla">
+                <button class="boton-volver" type="button" id="volver-paso-uno" aria-label="Volver al paso anterior">
+                    ‹
+                </button>
+                <h1 id="titulo-paso-dos">Sacar turno</h1>
+                <span class="espacio-encabezado" aria-hidden="true"></span>
+            </header>
+
+            <form id="form-reserva-turno" class="formulario-turno" novalidate>
+
+                <article class="card-reserva">
+                    <div class="circulo-icono-reserva">
+                        <img src="img/iconos/pata-azul.png" alt="Ícono de pata" class="icono-turno">
+                    </div>
+
+                    <div class="contenido-card-reserva">
+                        <h2>Reservá tu turno</h2>
+                        <p>Completá los datos principales.</p>
+                    </div>
+                </article>
+
+                <section class="bloque-formulario" aria-labelledby="titulo-mascota-turno">
+                    <h2 id="titulo-mascota-turno">Mascota</h2>
+
+                    <fieldset id="lista-mascotas" class="lista-mascotas">
+                        <legend class="texto-oculto">Elegí una mascota</legend>
+                    </fieldset>
+
+                    <p id="mensaje-mascota" class="mensaje-error" aria-live="polite"></p>
+                </section>
+
+                <section class="bloque-formulario" aria-labelledby="titulo-tipo-consulta">
+                    <h2 id="titulo-tipo-consulta">Tipo de consulta</h2>
+
+                    <fieldset class="card-opciones">
+                        <legend class="texto-oculto">Elegí el tipo de consulta</legend>
+
+                        <label class="opcion-radio">
+                            <input type="radio" name="tipo_consulta" value="consulta_general"
+                                data-motivo="Consulta general" checked>
+                            <span>Consulta general</span>
+                        </label>
+
+                        <label class="opcion-radio">
+                            <input type="radio" name="tipo_consulta" value="vacunacion" data-motivo="Vacunación">
+                            <span>Vacunación</span>
+                        </label>
+
+                        <label class="opcion-radio">
+                            <input type="radio" name="tipo_consulta" value="cirugias" data-motivo="Cirugías">
+                            <span>Cirugías</span>
+                        </label>
+
+                        <label class="opcion-radio">
+                            <input type="radio" name="tipo_consulta" value="analisis" data-motivo="Análisis">
+                            <span>Análisis</span>
+                        </label>
+                    </fieldset>
+
+                    <input type="hidden" id="motivo_consulta" name="motivo_consulta" value="Consulta general">
+                </section>
+
+                <section class="bloque-formulario" aria-labelledby="titulo-profesional">
+                    <h2 id="titulo-profesional">Profesional</h2>
+
+                    <label for="matricula_profesional" class="texto-oculto">Elegí un profesional</label>
+
+                    <article class="card-select-turno">
+                        <img src="img/iconos/estetoscopio-azul.png" alt="Ícono profesional"
+                            class="icono-turno-dato">
+
+                        <select id="matricula_profesional" name="matricula_profesional">
+                            <option value="">Seleccioná un profesional</option>
+                        </select>
+                    </article>
+                </section>
+
+                <section class="bloque-formulario" aria-labelledby="titulo-fecha-turno">
+                    <h2 id="titulo-fecha-turno">Fecha</h2>
+
+                    <label for="fecha_turno" class="texto-oculto">Elegí la fecha del turno</label>
+
+                    <article class="card-fecha-turno">
+                        <img src="img/iconos/calendario-azul.png" alt="Ícono calendario"
+                            class="icono-turno-dato">
+
+                        <input type="date" id="fecha_turno" name="fecha_turno" value="2026-05-20" required>
+                    </article>
+                </section>
+
+                <section class="bloque-formulario" aria-labelledby="titulo-horario-turno">
+                    <h2 id="titulo-horario-turno">Horario</h2>
+
+                    <fieldset class="card-horarios">
+                        <legend class="texto-oculto">Elegí un horario</legend>
+
+                        <button type="button" class="boton-horario horario-activo" data-horario="09:00"
+                            aria-pressed="true">
+                            09:00
+                        </button>
+
+                        <button type="button" class="boton-horario" data-horario="10:30" aria-pressed="false">
+                            10:30
+                        </button>
+
+                        <button type="button" class="boton-horario" data-horario="12:00" aria-pressed="false">
+                            12:00
+                        </button>
+
+                        <button type="button" class="boton-horario" data-horario="15:30" aria-pressed="false">
+                            15:30
+                        </button>
+
+                        <button type="button" class="boton-horario" data-horario="17:00" aria-pressed="false">
+                            17:00
+                        </button>
+                    </fieldset>
+
+                    <input type="hidden" id="horario_turno" name="horario_turno" value="09:00">
+                </section>
+
+                <section class="bloque-formulario" aria-labelledby="titulo-observaciones">
+                    <h2 id="titulo-observaciones">Observaciones</h2>
+
+                    <label for="observaciones" class="texto-oculto">Observaciones</label>
+                    <textarea id="observaciones" name="observaciones"
+                        placeholder="Agregá cualquier información importante..."></textarea>
+                </section>
+
+                <input type="hidden" name="pago" value="0">
+
+                <!-- RESUMEN DEL TURNO -->
+                <article class="card-resumen-turno" aria-label="Resumen del turno">
+
+                    <div class="fila-resumen">
+                        <img src="img/iconos/pata-azul.png" alt="Ícono mascota" class="icono-resumen">
+                        <span class="resumen-etiqueta">Mascota</span>
+                        <strong id="resumen-mascota">Seleccioná una mascota</strong>
+                    </div>
+
+                    <div class="fila-resumen">
+                        <img src="img/iconos/calendario-azul.png" alt="Ícono consulta" class="icono-resumen">
+                        <span class="resumen-etiqueta">Consulta</span>
+                        <strong id="resumen-consulta">Consulta general</strong>
+                    </div>
+
+                    <div class="fila-resumen">
+                        <img src="img/iconos/estetoscopio-azul.png" alt="Ícono profesional" class="icono-resumen">
+                        <span class="resumen-etiqueta">Profesional</span>
+                        <strong id="resumen-profesional">Profesional</strong>
+                    </div>
+
+                    <div class="fila-resumen">
+                        <img src="img/iconos/calendario-azul.png" alt="Ícono fecha" class="icono-resumen">
+                        <span class="resumen-etiqueta">Fecha</span>
+                        <strong id="resumen-fecha">Miércoles, 20 de mayo de 2026</strong>
+                    </div>
+
+                    <div class="fila-resumen">
+                        <img src="img/iconos/reloj-celeste.png" alt="Ícono horario" class="icono-resumen">
+                        <span class="resumen-etiqueta">Horario</span>
+                        <strong id="resumen-horario">09:00</strong>
+                    </div>
+
+                </article>
+
+                <button type="submit" class="boton-principal boton-confirmar">
+                    Confirmar turno
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- PANTALLA DE ÉXITO -->
+        <section id="paso-exito" class="paso-turno paso-exito" aria-labelledby="titulo-exito" hidden>
+
+            <article class="card-exito">
+
+                <div class="circulo-exito">
+                    <img src="img/iconos/pata-blanca.png" alt="Ícono de pata" class="icono-exito">
+                </div>
+
+                <h1 id="titulo-exito">Tu turno se ha realizado correctamente</h1>
+
+                <p>
+                    En unos segundos volverás al inicio.
+                </p>
+
+                <a href="inicio.html" class="boton-principal boton-volver-inicio">
+                    Volver al inicio
+                </a>
+
+            </article>
+
+        </section>
+
+    </main>
+
+    <!-- JS propio -->
+    <script src="js/turnos.js"></script>
+
+</body>
+
+</html>
