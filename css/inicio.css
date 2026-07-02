@@ -1,0 +1,1275 @@
+/* ============================================
+   inicio.css - SOLO CELULARES
+   ============================================ */
+
+:root {
+  --naranja: #FF7A1E;
+  --celeste: #32AEEF;
+  --celeste-fondo: #A9DDF3;
+  --texto-oscuro: #333333;
+  --texto-gris: #777777;
+  --blanco: #FFFFFF;
+  --borde-suave: #E9E9E9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--blanco);
+  color: var(--texto-oscuro);
+}
+
+/* ============================================
+   NAVBAR BOOTSTRAP PERSONALIZADO
+   ============================================ */
+
+.navbar-mi-amigo {
+  background: var(--blanco);
+  min-height: clamp(92px, 14vh, 112px);
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 1050;
+}
+
+.navbar-contenido {
+  position: relative;
+  padding: 0 clamp(22px, 7vw, 32px);
+  min-height: clamp(92px, 14vh, 112px);
+  display: flex;
+  align-items: center;
+}
+
+.marca-navbar {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 3vw, 14px);
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ÍCONO DE PATA DEL NAVBAR */
+
+.icono-navbar {
+  width: clamp(48px, 13vw, 58px);
+  min-width: clamp(48px, 13vw, 58px);
+  height: auto;
+  display: block;
+}
+
+.texto-marca {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 0.9;
+}
+
+/* TEXTO MI MEJOR AMIGO */
+
+.marca-linea-uno,
+.marca-linea-dos {
+  display: block;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: clamp(1.15rem, 4.8vw, 1.4rem);
+}
+
+.marca-linea-uno {
+  color: var(--texto-oscuro);
+}
+
+.marca-linea-dos {
+  color: var(--naranja);
+}
+
+/* BOTÓN HAMBURGUESA */
+
+.boton-menu {
+  border: none;
+  padding: 0;
+  margin-left: auto;
+  position: relative;
+  width: 38px;
+  height: 38px;
+  z-index: 1060;
+}
+
+.boton-menu:focus {
+  box-shadow: none;
+}
+
+.navbar-toggler-icon {
+  width: 34px;
+  height: 34px;
+  background-size: 100%;
+}
+
+/* Cambia la hamburguesa por una X cuando el menú está abierto */
+
+.boton-menu[aria-expanded="true"] .navbar-toggler-icon {
+  background-image: none;
+  position: relative;
+}
+
+.boton-menu[aria-expanded="true"] .navbar-toggler-icon::before,
+.boton-menu[aria-expanded="true"] .navbar-toggler-icon::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 4px;
+  width: 27px;
+  height: 3px;
+  background: var(--texto-oscuro);
+  border-radius: 4px;
+}
+
+.boton-menu[aria-expanded="true"] .navbar-toggler-icon::before {
+  transform: rotate(45deg);
+}
+
+.boton-menu[aria-expanded="true"] .navbar-toggler-icon::after {
+  transform: rotate(-45deg);
+}
+
+/* ============================================
+   MENÚ DESPLEGABLE CENTRADO
+   ============================================ */
+
+.menu-navbar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--blanco);
+  margin-top: 0;
+  padding: 4px 0 28px;
+  border-radius: 0 0 7px 7px;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.22);
+  z-index: 1055;
+}
+
+.menu-navbar .navbar-nav {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 0;
+}
+
+.menu-navbar .nav-item {
+  width: 100%;
+  text-align: center;
+}
+
+.menu-navbar .nav-link {
+  font-weight: 700;
+  color: var(--texto-oscuro);
+  text-align: center;
+  font-size: clamp(0.95rem, 4vw, 1.1rem);
+  padding: 8px 0;
+}
+
+/* ============================================
+   FONDO OSCURECIDO CUANDO SE ABRE EL MENÚ
+   ============================================ */
+
+.pagina-turnos {
+  position: relative;
+}
+
+.pagina-turnos::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  z-index: 1030;
+  transition: background 0.2s ease;
+}
+
+/* Cuando el menú Bootstrap está abierto, oscurece el fondo */
+
+.navbar-mi-amigo:has(.menu-navbar.show) + .pagina-turnos::before {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+/* ============================================
+   CONTENIDO GENERAL
+   ============================================ */
+
+.pagina-turnos {
+  width: 100%;
+  min-height: 100svh;
+  background: var(--blanco);
+  padding-top: clamp(92px, 14vh, 112px);
+  overflow-x: hidden;
+}
+
+.hero-turnos {
+  width: 100%;
+  min-height: calc(100svh - clamp(92px, 14vh, 112px));
+  padding: clamp(28px, 5vh, 42px) clamp(24px, 7vw, 34px) 0;
+  scroll-margin-top: clamp(92px, 14vh, 112px);
+}
+
+/* ============================================
+   TEXTO PRINCIPAL
+   ============================================ */
+
+.titulo-principal {
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: 0.2px;
+}
+
+.titulo-principal span {
+  display: block;
+}
+
+.titulo-celeste {
+  color: var(--celeste);
+  font-size: clamp(1.65rem, 7.7vw, 2rem);
+}
+
+.titulo-oscuro {
+  color: var(--texto-oscuro);
+  font-size: clamp(1.65rem, 7.7vw, 2rem);
+}
+
+.texto-descripcion {
+  width: 82%;
+  margin-top: clamp(24px, 5vh, 34px);
+  color: var(--texto-gris);
+  font-size: clamp(0.86rem, 3.8vw, 1rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+.acciones-turnos {
+  margin-top: clamp(30px, 5vh, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3.5vh, 26px);
+}
+
+.boton {
+  width: 100%;
+  min-height: clamp(44px, 7vh, 52px);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: clamp(1rem, 4.5vw, 1.15rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vw, 16px);
+}
+
+.boton-turno {
+  background: var(--naranja);
+  color: var(--blanco);
+}
+
+.boton-whatsapp {
+  background: var(--blanco);
+  color: var(--texto-oscuro);
+  border: 1px solid var(--borde-suave);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* ÍCONOS DE LOS BOTONES */
+
+.icono-boton {
+  width: clamp(36px, 9vw, 44px);
+  min-width: clamp(36px, 9vw, 44px);
+  height: auto;
+  display: block;
+}
+
+.boton-turno .icono-boton {
+  width: clamp(34px, 8.5vw, 42px);
+  min-width: clamp(34px, 8.5vw, 42px);
+}
+
+.boton-whatsapp .icono-boton {
+  width: clamp(36px, 9vw, 44px);
+  min-width: clamp(36px, 9vw, 44px);
+}
+
+/* ============================================
+   IMAGEN DEL PERRO CON FONDO DE HUESOS
+   ============================================ */
+
+.imagen-mascota {
+  width: 100%;
+  height: clamp(225px, 35vh, 285px);
+  margin-top: clamp(38px, 5.5vh, 52px);
+  margin-bottom: 0;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--celeste-fondo);
+  background-image: url('../img/fondo-huesos.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.perro-turnos {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: clamp(175px, 55vw, 230px);
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   SECCIÓN SERVICIOS
+   ============================================ */
+
+.seccion-servicios {
+  width: 100%;
+  padding: clamp(34px, 6vh, 48px) clamp(24px, 7vw, 34px) clamp(40px, 7vh, 56px);
+  background: var(--blanco);
+  scroll-margin-top: clamp(92px, 14vh, 112px);
+}
+
+.encabezado-seccion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.icono-seccion {
+  width: clamp(68px, 16vw, 82px);
+  min-width: clamp(68px, 16vw, 82px);
+  height: auto;
+  display: block;
+}
+
+.encabezado-seccion h2 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(1.18rem, 5.1vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+/* LISTADO DE SERVICIOS */
+
+.lista-servicios {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-servicio {
+  width: 100%;
+  min-height: 74px;
+  padding: 0 22px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 10px;
+  background: var(--blanco);
+  text-decoration: none;
+  color: var(--texto-oscuro);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+}
+
+.card-servicio:active {
+  transform: scale(0.98);
+}
+
+.icono-servicio {
+  width: clamp(46px, 12vw, 56px);
+  min-width: clamp(46px, 12vw, 56px);
+  height: auto;
+  display: block;
+  margin-right: 26px;
+}
+
+.card-servicio span {
+  font-size: clamp(0.98rem, 4.4vw, 1.15rem);
+  font-weight: 800;
+}
+
+.flecha-card {
+  margin-left: auto;
+  font-size: 2.2rem !important;
+  font-weight: 500 !important;
+  line-height: 1;
+  color: var(--texto-oscuro);
+}
+
+/* CTA DE TURNO */
+
+.cta-servicios-turno {
+  margin-top: 34px;
+  background: var(--celeste);
+  border-radius: 10px;
+  padding: 24px 22px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  scroll-margin-top: clamp(92px, 14vh, 112px);
+}
+
+.cta-icono {
+  width: 70px;
+  min-width: 70px;
+  height: 70px;
+  border: 2px solid var(--blanco);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-icono img {
+  width: 42px;
+  height: auto;
+  display: block;
+}
+
+.cta-contenido {
+  width: 100%;
+}
+
+.cta-contenido h3 {
+  margin: 0 0 8px;
+  color: var(--blanco);
+  font-size: clamp(1.15rem, 5.2vw, 1.35rem);
+  font-weight: 800;
+  line-height: 0.95;
+}
+
+.cta-contenido p {
+  margin: 0 0 14px;
+  color: var(--blanco);
+  font-size: clamp(0.76rem, 3.4vw, 0.9rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.boton-cta-turno {
+  width: 100%;
+  min-height: 34px;
+  border-radius: 9px;
+  background: var(--naranja);
+  color: var(--blanco);
+  text-decoration: none;
+  font-size: clamp(0.88rem, 4vw, 1rem);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boton-cta-turno:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   SECCIÓN SOBRE NOSOTROS
+   ============================================ */
+
+.seccion-sobre-nosotros {
+  width: 100%;
+  padding: 0 clamp(24px, 7vw, 34px) clamp(44px, 7vh, 58px);
+  background: var(--blanco);
+  scroll-margin-top: clamp(92px, 14vh, 112px);
+}
+
+.card-sobre-nosotros {
+  width: 100%;
+  padding: clamp(30px, 6vh, 42px) clamp(22px, 6vw, 30px) clamp(34px, 6vh, 46px);
+  border: 1px solid var(--borde-suave);
+  border-radius: 12px;
+  background: var(--blanco);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+}
+
+.circulo-sobre-nosotros {
+  width: clamp(92px, 24vw, 112px);
+  height: clamp(92px, 24vw, 112px);
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: var(--celeste-fondo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icono-sobre-nosotros {
+  width: 84%;
+  height: auto;
+  display: block;
+}
+
+.card-sobre-nosotros h2 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(1.25rem, 5.8vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.texto-sobre-nosotros {
+  margin: 26px 0 34px;
+  color: var(--texto-oscuro);
+  font-size: clamp(0.86rem, 3.9vw, 1rem);
+  font-weight: 400;
+  line-height: 1.55;
+  text-align: justify;
+}
+
+.lista-valores {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-valor {
+  width: 100%;
+  min-height: 66px;
+  padding: 12px 18px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 10px;
+  background: var(--blanco);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+}
+
+.icono-valor {
+  width: clamp(52px, 13vw, 62px);
+  min-width: clamp(52px, 13vw, 62px);
+  height: auto;
+  display: block;
+  margin-right: 18px;
+}
+
+.texto-valor h3 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(0.95rem, 4.3vw, 1.1rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.texto-valor p {
+  margin: 4px 0 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(0.72rem, 3.2vw, 0.86rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* ============================================
+   SECCIÓN CONSEJOS
+   ============================================ */
+
+.seccion-consejos {
+  width: 100%;
+  padding: 0 clamp(24px, 7vw, 34px) clamp(44px, 7vh, 58px);
+  background: var(--blanco);
+  scroll-margin-top: clamp(92px, 14vh, 112px);
+}
+
+.encabezado-consejos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.icono-consejos {
+  width: clamp(68px, 16vw, 82px);
+  min-width: clamp(68px, 16vw, 82px);
+  height: auto;
+  display: block;
+}
+
+.encabezado-consejos h2 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(1.18rem, 5.1vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.lista-consejos {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card-consejo {
+  width: 100%;
+  min-height: 96px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 12px;
+  background: var(--blanco);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+}
+
+.imagen-consejo {
+  width: clamp(112px, 31vw, 132px);
+  min-width: clamp(112px, 31vw, 132px);
+  height: 96px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.contenido-consejo {
+  padding: 0 12px 0 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.contenido-consejo h3 {
+  margin: 0 0 4px;
+  color: var(--texto-oscuro);
+  font-size: clamp(0.95rem, 4.3vw, 1.1rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.contenido-consejo p {
+  margin: 0 0 4px;
+  color: var(--texto-oscuro);
+  font-size: clamp(0.72rem, 3.2vw, 0.86rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.contenido-consejo a {
+  color: var(--celeste);
+  font-size: clamp(0.78rem, 3.5vw, 0.92rem);
+  font-weight: 800;
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.card-consejo .flecha-card {
+  margin-left: auto;
+  margin-right: 16px;
+  flex: 0 0 auto;
+}
+
+/* ============================================
+   SECCIÓN CONTACTO
+   ============================================ */
+
+.seccion-contacto {
+  width: 100%;
+  padding: 0 clamp(24px, 7vw, 34px) clamp(48px, 8vh, 64px);
+  background: var(--blanco);
+  scroll-margin-top: clamp(92px, 14vh, 112px);
+}
+
+.encabezado-contacto {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 42px;
+}
+
+.icono-titulo-seccion {
+  width: clamp(68px, 16vw, 82px);
+  min-width: clamp(68px, 16vw, 82px);
+  height: auto;
+  display: block;
+}
+
+.encabezado-contacto h2 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(1.35rem, 6vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.lista-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.card-contacto {
+  width: 100%;
+  min-height: 96px;
+  padding: 16px 20px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 12px;
+  background: var(--blanco);
+  color: var(--texto-oscuro);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+}
+
+.card-contacto:active {
+  transform: scale(0.98);
+}
+
+.icono-contacto-card {
+  width: clamp(62px, 16vw, 74px);
+  min-width: clamp(62px, 16vw, 74px);
+  height: auto;
+  display: block;
+  margin-right: 22px;
+}
+
+.contenido-contacto {
+  flex: 1;
+  min-width: 0;
+}
+
+.contenido-contacto h3 {
+  margin: 0 0 6px;
+  color: var(--texto-oscuro);
+  font-size: clamp(1rem, 4.5vw, 1.18rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.contenido-contacto p {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(0.76rem, 3.4vw, 0.92rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.card-contacto .flecha-card {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer-mi-amigo {
+  width: 100%;
+  background: var(--texto-oscuro);
+  border-radius: 18px 18px 0 0;
+  padding: 28px clamp(24px, 7vw, 34px) 34px;
+}
+
+.footer-superior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.icono-footer-logo {
+  width: clamp(46px, 12vw, 58px);
+  min-width: clamp(46px, 12vw, 58px);
+  height: auto;
+  display: block;
+}
+
+.footer-texto-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.95;
+}
+
+.marca-footer-linea-uno,
+.marca-footer-linea-dos {
+  display: block;
+  font-size: clamp(0.9rem, 3.9vw, 1.16rem);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.marca-footer-linea-uno {
+  color: var(--blanco);
+  white-space: nowrap;
+}
+
+.marca-footer-linea-dos {
+  color: var(--naranja);
+}
+
+.frase-footer {
+  margin: 0;
+  color: var(--blanco);
+  font-size: clamp(0.74rem, 3.2vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  text-align: right;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.icono-corazon-footer {
+  width: clamp(28px, 7vw, 36px);
+  min-width: clamp(28px, 7vw, 36px);
+  height: auto;
+  display: block;
+}
+
+.footer-redes {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.footer-redes a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.icono-red-footer {
+  width: clamp(64px, 16vw, 78px);
+  min-width: clamp(64px, 16vw, 78px);
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   AJUSTES RESPONSIVE POR ALTURA
+   ============================================ */
+
+@media (max-height: 760px) {
+  .navbar-mi-amigo {
+    min-height: 88px;
+  }
+
+  .navbar-contenido {
+    min-height: 88px;
+  }
+
+  .pagina-turnos {
+    padding-top: 88px;
+  }
+
+  .hero-turnos {
+    min-height: calc(100svh - 88px);
+    padding-top: 26px;
+  }
+
+  .texto-descripcion {
+    margin-top: 22px;
+  }
+
+  .acciones-turnos {
+    margin-top: 28px;
+    gap: 18px;
+  }
+
+  .imagen-mascota {
+    margin-top: 34px;
+    height: 220px;
+  }
+
+  .perro-turnos {
+    width: 190px;
+  }
+}
+
+@media (max-height: 700px) {
+  .navbar-mi-amigo {
+    min-height: 82px;
+  }
+
+  .navbar-contenido {
+    min-height: 82px;
+  }
+
+  .pagina-turnos {
+    padding-top: 82px;
+  }
+
+  .hero-turnos {
+    min-height: calc(100svh - 82px);
+    padding-top: 22px;
+  }
+
+  .titulo-celeste,
+  .titulo-oscuro {
+    font-size: clamp(1.45rem, 6.8vw, 1.75rem);
+  }
+
+  .texto-descripcion {
+    margin-top: 18px;
+    font-size: 0.82rem;
+  }
+
+  .acciones-turnos {
+    margin-top: 24px;
+    gap: 16px;
+  }
+
+  .boton {
+    min-height: 42px;
+    font-size: 0.95rem;
+  }
+
+  .icono-boton {
+    width: 34px;
+    min-width: 34px;
+  }
+
+  .boton-turno .icono-boton {
+    width: 32px;
+    min-width: 32px;
+  }
+
+  .boton-whatsapp .icono-boton {
+    width: 34px;
+    min-width: 34px;
+  }
+
+  .imagen-mascota {
+    margin-top: 30px;
+    height: 205px;
+  }
+
+  .perro-turnos {
+    width: 178px;
+  }
+}
+
+@media (max-height: 640px) {
+  .navbar-mi-amigo {
+    min-height: 76px;
+  }
+
+  .navbar-contenido {
+    min-height: 76px;
+  }
+
+  .pagina-turnos {
+    padding-top: 76px;
+  }
+
+  .hero-turnos {
+    min-height: calc(100svh - 76px);
+    padding-top: 18px;
+  }
+
+  .icono-navbar {
+    width: 42px;
+    min-width: 42px;
+  }
+
+  .marca-linea-uno,
+  .marca-linea-dos {
+    font-size: 1rem;
+  }
+
+  .titulo-celeste,
+  .titulo-oscuro {
+    font-size: 1.35rem;
+  }
+
+  .texto-descripcion {
+    width: 86%;
+    margin-top: 16px;
+    font-size: 0.78rem;
+  }
+
+  .acciones-turnos {
+    margin-top: 20px;
+    gap: 14px;
+  }
+
+  .boton {
+    min-height: 39px;
+    font-size: 0.9rem;
+    gap: 10px;
+  }
+
+  .icono-boton {
+    width: 32px;
+    min-width: 32px;
+  }
+
+  .boton-turno .icono-boton {
+    width: 30px;
+    min-width: 30px;
+  }
+
+  .boton-whatsapp .icono-boton {
+    width: 32px;
+    min-width: 32px;
+  }
+
+  .imagen-mascota {
+    margin-top: 24px;
+    height: 185px;
+  }
+
+  .perro-turnos {
+    width: 160px;
+  }
+}
+
+/* ============================================
+   AJUSTE PARA CELULARES MUY ANGOSTOS
+   ============================================ */
+
+@media (max-width: 359px) {
+  .navbar-contenido {
+    padding: 0 22px;
+  }
+
+  .icono-navbar {
+    width: 42px;
+    min-width: 42px;
+  }
+
+  .marca-linea-uno,
+  .marca-linea-dos {
+    font-size: 1rem;
+  }
+
+  .hero-turnos {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .titulo-celeste,
+  .titulo-oscuro {
+    font-size: clamp(1.45rem, 7.2vw, 1.75rem);
+  }
+
+  .texto-descripcion {
+    width: 86%;
+  }
+
+  .acciones-turnos {
+    gap: 16px;
+  }
+
+  .icono-boton {
+    width: 32px;
+    min-width: 32px;
+  }
+
+  .boton-turno .icono-boton {
+    width: 30px;
+    min-width: 30px;
+  }
+
+  .boton-whatsapp .icono-boton {
+    width: 32px;
+    min-width: 32px;
+  }
+
+  .imagen-mascota {
+    height: 210px;
+  }
+
+  .perro-turnos {
+    width: 175px;
+  }
+
+  .seccion-servicios,
+  .seccion-sobre-nosotros,
+  .seccion-consejos,
+  .seccion-contacto {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .encabezado-seccion,
+  .encabezado-consejos,
+  .encabezado-contacto {
+    gap: 6px;
+  }
+
+  .icono-seccion,
+  .icono-consejos,
+  .icono-titulo-seccion {
+    width: 58px;
+    min-width: 58px;
+  }
+
+  .encabezado-seccion h2,
+  .encabezado-consejos h2,
+  .encabezado-contacto h2 {
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  .card-servicio {
+    min-height: 68px;
+    padding: 0 18px;
+  }
+
+  .icono-servicio {
+    width: 42px;
+    min-width: 42px;
+    margin-right: 20px;
+  }
+
+  .cta-servicios-turno {
+    padding: 22px 18px 18px;
+    gap: 16px;
+  }
+
+  .cta-icono {
+    width: 62px;
+    min-width: 62px;
+    height: 62px;
+  }
+
+  .cta-icono img {
+    width: 36px;
+  }
+
+  .card-sobre-nosotros {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .circulo-sobre-nosotros {
+    width: 86px;
+    height: 86px;
+  }
+
+  .icono-sobre-nosotros {
+    width: 86%;
+  }
+
+  .card-valor {
+    padding: 12px 14px;
+  }
+
+  .icono-valor {
+    width: 46px;
+    min-width: 46px;
+    margin-right: 14px;
+  }
+
+  .card-consejo {
+    min-height: 86px;
+  }
+
+  .imagen-consejo {
+    width: 98px;
+    min-width: 98px;
+    height: 86px;
+  }
+
+  .contenido-consejo {
+    padding-left: 12px;
+    padding-right: 8px;
+  }
+
+  .card-consejo .flecha-card {
+    margin-right: 12px;
+  }
+
+  .lista-contacto {
+    gap: 22px;
+  }
+
+  .card-contacto {
+    min-height: 86px;
+    padding: 14px 16px;
+  }
+
+  .icono-contacto-card {
+    width: 52px;
+    min-width: 52px;
+    margin-right: 16px;
+  }
+
+  .contenido-contacto h3 {
+    font-size: 0.95rem;
+  }
+
+  .contenido-contacto p {
+    font-size: 0.72rem;
+  }
+
+  .footer-mi-amigo {
+    padding: 24px 22px 30px;
+  }
+
+  .footer-superior {
+    gap: 8px;
+  }
+
+  .footer-logo {
+    gap: 8px;
+  }
+
+  .icono-footer-logo {
+    width: 42px;
+    min-width: 42px;
+  }
+
+  .marca-footer-linea-uno,
+  .marca-footer-linea-dos {
+    font-size: 0.78rem;
+  }
+
+  .frase-footer {
+    font-size: 0.66rem;
+    gap: 5px;
+  }
+
+  .icono-corazon-footer {
+    width: 22px;
+    min-width: 22px;
+  }
+
+  .footer-redes {
+    gap: 24px;
+  }
+
+  .icono-red-footer {
+    width: 58px;
+    min-width: 58px;
+  }
+}

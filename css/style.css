@@ -1,0 +1,320 @@
+/* ============================================
+   style.css - SOLO CELULARES
+   ============================================ */
+
+:root {
+  --naranja: #FF7A1E;
+  --celeste: #A9DDF3;
+  --texto-oscuro: #222222;
+  --blanco: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--celeste);
+}
+
+/* ============================================
+   CONTENEDOR GENERAL
+   ============================================ */
+
+main.welcome-page {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--celeste);
+}
+
+/* ============================================
+   SECCIÓN SUPERIOR: LOGO + TÍTULO
+   ============================================ */
+
+header.top-section {
+  position: absolute;
+  top: clamp(56px, 8svh, 78px);
+  left: 0;
+  width: 100%;
+  z-index: 5;
+  background: transparent;
+  text-align: center;
+  padding: 0 5vw;
+}
+
+/* LOGO */
+
+figure.icon-circle {
+  margin: 0 auto clamp(10px, 1.6svh, 14px);
+  line-height: 0;
+}
+
+figure.icon-circle img {
+  width: clamp(64px, 18vw, 82px);
+  height: auto;
+}
+
+/* TÍTULO */
+
+h1.brand-title {
+  font-size: clamp(2.65rem, 11vw, 4.25rem);
+  font-weight: 800;
+  color: var(--texto-oscuro);
+  line-height: 1.05;
+  letter-spacing: 0.5px;
+}
+
+span.brand-highlight {
+  color: var(--naranja);
+}
+
+/* ============================================
+   FONDO CELESTE CON HUESITOS
+   ============================================ */
+
+section.bottom-section {
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/fondo-huesos.png');
+  background-color: var(--celeste);
+  background-size: cover;
+  background-position: center bottom;
+  overflow: hidden;
+}
+
+/* Zona blanca superior para separar logo/título del fondo celeste */
+
+section.bottom-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(330px, 48svh, 410px);
+  background: var(--blanco);
+  z-index: 0;
+}
+
+/* ============================================
+   CÍRCULO / FORMA BLANCA SUPERIOR
+   ============================================ */
+
+span.white-blob {
+  position: absolute;
+  top: clamp(-250px, -28svh, -185px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 230%;
+  height: clamp(600px, 78svh, 720px);
+  background: var(--blanco);
+  border-radius: 0 0 50% 50% / 0 0 30% 30%;
+  z-index: 1;
+  display: block;
+}
+
+/* ============================================
+   PERRO
+   ============================================ */
+
+img.dog-img {
+  position: absolute;
+  bottom: clamp(-86px, -10svh, -58px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(560px, 172vw, 720px);
+  max-width: none;
+  height: auto;
+  z-index: 2;
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+nav.welcome-buttons {
+  position: absolute;
+  bottom: clamp(34px, 6.5svh, 58px);
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 0 clamp(58px, 15vw, 74px);
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2svh, 18px);
+}
+
+a.btn-welcome {
+  display: block;
+  background: var(--blanco);
+  color: var(--naranja);
+  text-align: center;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: clamp(1rem, 4.3vw, 1.15rem);
+  letter-spacing: 0.5px;
+  padding: clamp(12px, 1.8svh, 15px) 0;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+a.btn-welcome:active {
+  transform: scale(0.97);
+}
+
+/* ============================================
+   PANTALLAS MÁS BAJAS
+   Se achican elementos, pero mantienen la composición
+   ============================================ */
+
+@media (max-height: 760px) {
+  header.top-section {
+    top: clamp(42px, 6.5svh, 58px);
+  }
+
+  figure.icon-circle img {
+    width: clamp(56px, 16vw, 70px);
+  }
+
+  h1.brand-title {
+    font-size: clamp(2.25rem, 9.8vw, 3.35rem);
+  }
+
+  section.bottom-section::before {
+    height: clamp(285px, 45svh, 345px);
+  }
+
+  span.white-blob {
+    top: clamp(-230px, -30svh, -185px);
+    height: clamp(550px, 76svh, 660px);
+  }
+
+  img.dog-img {
+    bottom: clamp(-96px, -13svh, -70px);
+    width: clamp(510px, 165vw, 650px);
+  }
+
+  nav.welcome-buttons {
+    bottom: clamp(28px, 5.5svh, 44px);
+  }
+
+  a.btn-welcome {
+    padding: 11px 0;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-height: 700px) {
+  header.top-section {
+    top: clamp(34px, 5.5svh, 48px);
+  }
+
+  figure.icon-circle img {
+    width: clamp(50px, 14vw, 62px);
+  }
+
+  h1.brand-title {
+    font-size: clamp(2rem, 8.8vw, 2.8rem);
+  }
+
+  section.bottom-section::before {
+    height: clamp(250px, 43svh, 310px);
+  }
+
+  span.white-blob {
+    top: clamp(-215px, -31svh, -175px);
+    height: clamp(500px, 74svh, 610px);
+  }
+
+  img.dog-img {
+    bottom: clamp(-105px, -15svh, -78px);
+    width: clamp(470px, 158vw, 610px);
+  }
+
+  nav.welcome-buttons {
+    bottom: clamp(24px, 5svh, 38px);
+    gap: 12px;
+  }
+
+  a.btn-welcome {
+    padding: 10px 0;
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-height: 640px) {
+  header.top-section {
+    top: 28px;
+  }
+
+  figure.icon-circle img {
+    width: clamp(46px, 13vw, 56px);
+  }
+
+  h1.brand-title {
+    font-size: clamp(1.8rem, 8vw, 2.45rem);
+  }
+
+  section.bottom-section::before {
+    height: clamp(230px, 41svh, 285px);
+  }
+
+  span.white-blob {
+    top: -200px;
+    height: clamp(470px, 72svh, 560px);
+  }
+
+  img.dog-img {
+    bottom: -112px;
+    width: clamp(440px, 152vw, 560px);
+  }
+
+  nav.welcome-buttons {
+    bottom: 20px;
+    gap: 10px;
+  }
+
+  a.btn-welcome {
+    padding: 9px 0;
+    font-size: 0.82rem;
+  }
+}
+
+/* ============================================
+   CELULARES MUY ANGOSTOS
+   ============================================ */
+
+@media (max-width: 359px) {
+  header.top-section {
+    top: clamp(46px, 7svh, 62px);
+  }
+
+  figure.icon-circle img {
+    width: clamp(52px, 16vw, 64px);
+  }
+
+  h1.brand-title {
+    font-size: clamp(2rem, 9vw, 2.7rem);
+  }
+
+  img.dog-img {
+    width: clamp(500px, 168vw, 620px);
+    left: 50%;
+  }
+
+  nav.welcome-buttons {
+    padding: 0 clamp(42px, 13vw, 58px);
+  }
+}

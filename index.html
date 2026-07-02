@@ -1,12 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Mejor Amigo | Bienvenida</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Nuestro CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>MI MEJOR AMIGO</h1>
-    <h2>Hice una buena elección</h2>
+
+  <main class="welcome-page">
+
+    <!-- SECCIÓN SUPERIOR: LOGO + TÍTULO -->
+    <header class="top-section">
+      <figure class="icon-circle">
+        <img src="img/iconos/icono-pata.png" alt="Icono pata Mi Mejor Amigo">
+      </figure>
+
+      <h1 class="brand-title">
+        MI MEJOR<br>
+        <span class="brand-highlight">AMIGO</span>
+      </h1>
+    </header>
+
+    <!-- SECCIÓN INFERIOR: FONDO CELESTE + PERRO + BOTONES -->
+    <section class="bottom-section">
+
+      <!-- Forma blanca orgánica detrás del perro -->
+      <span class="white-blob" aria-hidden="true"></span>
+
+      <!-- Foto del perro -->
+      <img src="img/animales/perro.png" alt="Perro labrador" class="dog-img">
+
+      <!-- Botones -->
+      <nav class="welcome-buttons">
+        <a href="inicio.html" class="btn-welcome">INICIO</a>
+        <a href="inicio.html#turnos" class="btn-welcome">TURNOS</a>
+      </nav>
+
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

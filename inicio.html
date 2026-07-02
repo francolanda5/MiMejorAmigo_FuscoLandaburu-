@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mi Mejor Amigo - Inicio</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="css/inicio.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR BOOTSTRAP -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-mi-amigo">
+        <div class="container-fluid navbar-contenido">
+
+            <a class="navbar-brand marca-navbar" href="#inicio">
+                <img src="img/iconos/icono-pata.png" alt="Ícono de pata" class="icono-navbar">
+
+                <span class="texto-marca">
+                    <span class="marca-linea-uno">MI MEJOR</span>
+                    <span class="marca-linea-dos">AMIGO</span>
+                </span>
+            </a>
+
+            <button class="navbar-toggler boton-menu" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse menu-navbar" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#consejos">Consejos y bienestar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#turnos">Sacar turno</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sobre-nosotros">Sobre nosotros</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pagina-turnos">
+
+        <!-- SECCIÓN INICIO / HERO -->
+        <section id="inicio" class="hero-turnos">
+
+            <h1 class="titulo-principal">
+                <span class="titulo-celeste">Cuidado cercano</span>
+                <span class="titulo-oscuro">y profesional para</span>
+                <span class="titulo-oscuro">tu mascota</span>
+            </h1>
+
+            <p class="texto-descripcion">
+                Bienestar, prevención y atención veterinaria integral para que viva más sano y feliz.
+            </p>
+
+            <section class="acciones-turnos">
+
+                <a href="#turnos" class="boton boton-turno">
+                    <img src="img/iconos/calendario-blanco.png" alt="Calendario" class="icono-boton">
+                    Sacar turno
+                </a>
+
+                <a href="#contacto" class="boton boton-whatsapp">
+                    <img src="img/iconos/whatsapp-gris.png" alt="WhatsApp" class="icono-boton">
+                    WhatsApp
+                </a>
+
+            </section>
+
+            <figure class="imagen-mascota">
+                <img src="img/animales/perro-2.png" alt="Perro" class="perro-turnos">
+            </figure>
+
+        </section>
+
+        <!-- SECCIÓN SERVICIOS -->
+        <section id="servicios" class="seccion-servicios">
+
+            <div class="encabezado-seccion">
+                <img src="img/iconos/pata-azul.png" alt="Ícono de pata" class="icono-seccion">
+                <h2>Servicios principales</h2>
+            </div>
+
+            <div class="lista-servicios">
+
+                <a href="#" class="card-servicio">
+                    <img src="img/iconos/estetoscopio-azul.png" alt="Ícono de consultas" class="icono-servicio">
+                    <span>Consultas</span>
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-servicio">
+                    <img src="img/iconos/jeringa-naranja.png" alt="Ícono de vacunación" class="icono-servicio">
+                    <span>Vacunación</span>
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-servicio">
+                    <img src="img/iconos/análisis-azul.png" alt="Ícono de análisis" class="icono-servicio">
+                    <span>Análisis</span>
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-servicio">
+                    <img src="img/iconos/cirugia-naranja.png" alt="Ícono de cirugías" class="icono-servicio">
+                    <span>Cirugías</span>
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-servicio">
+                    <img src="img/iconos/urgencia-azul.png" alt="Ícono de urgencias" class="icono-servicio">
+                    <span>Urgencias</span>
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-servicio">
+                    <img src="img/iconos/vermás-naranja.png" alt="Ícono de ver más" class="icono-servicio">
+                    <span>Ver más</span>
+                    <span class="flecha-card">›</span>
+                </a>
+
+            </div>
+
+            <aside id="turnos" class="cta-servicios-turno">
+                <div class="cta-icono">
+                    <img src="img/iconos/calendario-blanco.png" alt="Calendario">
+                </div>
+
+                <div class="cta-contenido">
+                    <h3>Reservá el turno<br>de tu mascota</h3>
+                    <p>Elegí el día y horario que mejor te convenga. Rápido, fácil y seguro.</p>
+                    <a href="#turnos" class="boton-cta-turno">Sacar turno</a>
+                </div>
+            </aside>
+
+        </section>
+
+        <!-- SECCIÓN SOBRE NOSOTROS -->
+        <section id="sobre-nosotros" class="seccion-sobre-nosotros">
+
+            <article class="card-sobre-nosotros">
+
+                <div class="circulo-sobre-nosotros">
+                    <img src="img/iconos/sobre-nosotros.png" alt="Ícono de perro y gato" class="icono-sobre-nosotros">
+                </div>
+
+                <h2>Sobre nosotros</h2>
+
+                <p class="texto-sobre-nosotros">
+                    Somos un equipo de veterinarios apasionados por el bienestar animal. Trabajamos con profesionalismo,
+                    calidez y compromiso en cada etapa de la vida de tu mascota.
+                </p>
+
+                <div class="lista-valores">
+
+                    <article class="card-valor">
+                        <img src="img/iconos/corazón-azul.png" alt="Ícono cuidado" class="icono-valor">
+
+                        <div class="texto-valor">
+                            <h3>Cuidado</h3>
+                            <p>Atención integral y personalizada.</p>
+                        </div>
+                    </article>
+
+                    <article class="card-valor">
+                        <img src="img/iconos/escudo-naranja.png" alt="Ícono confianza" class="icono-valor">
+
+                        <div class="texto-valor">
+                            <h3>Confianza</h3>
+                            <p>Transparencia y ética profesional.</p>
+                        </div>
+                    </article>
+
+                    <article class="card-valor">
+                        <img src="img/iconos/cercanía-azul.png" alt="Ícono cercanía" class="icono-valor">
+
+                        <div class="texto-valor">
+                            <h3>Cercanía</h3>
+                            <p>Siempre cerca, siempre para vos.</p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <!-- SECCIÓN CONSEJOS -->
+        <section id="consejos" class="seccion-consejos">
+
+            <div class="encabezado-consejos">
+                <img src="img/iconos/pata-azul.png" alt="Ícono de pata" class="icono-consejos">
+                <h2>Consejos y bienestar</h2>
+            </div>
+
+            <div class="lista-consejos">
+
+                <article class="card-consejo">
+                    <img src="img/animales/imagen-consejo-1.jpg" alt="Perro corriendo" class="imagen-consejo">
+
+                    <div class="contenido-consejo">
+                        <h3>Cuidado general</h3>
+                        <p>Tips para una vida sana y feliz.</p>
+                        <a href="#">Leer más</a>
+                    </div>
+
+                    <span class="flecha-card">›</span>
+                </article>
+
+                <article class="card-consejo">
+                    <img src="img/animales/imagen-consejo-2.jpg" alt="Gato descansando" class="imagen-consejo">
+
+                    <div class="contenido-consejo">
+                        <h3>Vacunación</h3>
+                        <p>Como proteger a tu mascota.</p>
+                        <a href="#">Leer más</a>
+                    </div>
+
+                    <span class="flecha-card">›</span>
+                </article>
+
+                <article class="card-consejo">
+                    <img src="img/animales/imagen-consejo-3.jpg" alt="Perro en el pasto" class="imagen-consejo">
+
+                    <div class="contenido-consejo">
+                        <h3>Prevención</h3>
+                        <p>Clave para prevenir enfermedades.</p>
+                        <a href="#">Leer más</a>
+                    </div>
+
+                    <span class="flecha-card">›</span>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- SECCIÓN CONTACTO -->
+        <section id="contacto" class="seccion-contacto">
+
+            <div class="encabezado-contacto">
+                <img src="img/iconos/contacto-azul.png" alt="Ícono de contacto" class="icono-titulo-seccion">
+                <h2>Contacto</h2>
+            </div>
+
+            <div class="lista-contacto">
+
+                <a href="#" class="card-contacto">
+                    <img src="img/iconos/whatsapp-celeste.png" alt="Ícono WhatsApp" class="icono-contacto-card">
+
+                    <div class="contenido-contacto">
+                        <h3>WhatsApp</h3>
+                        <p>11 1234 5678 | Escribínos 24/7</p>
+                    </div>
+
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-contacto">
+                    <img src="img/iconos/teléfono-naranja.png" alt="Ícono teléfono" class="icono-contacto-card">
+
+                    <div class="contenido-contacto">
+                        <h3>Teléfono</h3>
+                        <p>11 1234 5678 | Lun a Vie 9 a 20 hs</p>
+                    </div>
+
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-contacto">
+                    <img src="img/iconos/dirección-celeste.png" alt="Ícono dirección" class="icono-contacto-card">
+
+                    <div class="contenido-contacto">
+                        <h3>Dirección</h3>
+                        <p>Av. Juan B Alberdi 1234, CABA, Argentina</p>
+                    </div>
+
+                    <span class="flecha-card">›</span>
+                </a>
+
+                <a href="#" class="card-contacto">
+                    <img src="img/iconos/horarios-naranja.png" alt="Ícono horarios" class="icono-contacto-card">
+
+                    <div class="contenido-contacto">
+                        <h3>Horarios</h3>
+                        <p>Lun a Vie 9 a 20 hs | Sáb 9 a 14 hs</p>
+                    </div>
+
+                    <span class="flecha-card">›</span>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-mi-amigo">
+
+        <div class="footer-superior">
+
+            <div class="footer-logo">
+                <img src="img/iconos/icono-pata.png" alt="Ícono de pata" class="icono-footer-logo">
+
+                <span class="footer-texto-logo">
+                    <span class="marca-footer-linea-uno">MI MEJOR</span>
+                    <span class="marca-footer-linea-dos">AMIGO</span>
+                </span>
+            </div>
+
+            <p class="frase-footer">
+                Diseñado con
+                <img src="img/iconos/corazón-naranja.png" alt="Corazón" class="icono-corazon-footer">
+                para ellos
+            </p>
+
+        </div>
+
+        <div class="footer-redes">
+            <a href="#" aria-label="Instagram">
+                <img src="img/iconos/instagram-negro.png" alt="Instagram" class="icono-red-footer">
+            </a>
+
+            <a href="#" aria-label="Facebook">
+                <img src="img/iconos/facebook-negro.png" alt="Facebook" class="icono-red-footer">
+            </a>
+
+            <a href="#" aria-label="WhatsApp">
+                <img src="img/iconos/whatsapp-negro.png" alt="WhatsApp" class="icono-red-footer">
+            </a>
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS propio -->
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
