@@ -416,9 +416,12 @@ body {
   margin-right: 26px;
 }
 
-.card-servicio span {
+.card-servicio h3 {
+  margin: 0;
+  color: var(--texto-oscuro);
   font-size: clamp(0.98rem, 4.4vw, 1.15rem);
   font-weight: 800;
+  line-height: 1.1;
 }
 
 .flecha-card {
@@ -469,6 +472,10 @@ body {
   font-size: clamp(1.15rem, 5.2vw, 1.35rem);
   font-weight: 800;
   line-height: 0.95;
+}
+
+.cta-contenido h3 span {
+  display: block;
 }
 
 .cta-contenido p {
@@ -1003,6 +1010,7 @@ body {
 
   .boton-whatsapp .icono-boton {
     width: 32px;
+    min-width: 32px;
   }
 
   .imagen-mascota {
@@ -1064,6 +1072,7 @@ body {
 
   .boton-whatsapp .icono-boton {
     width: 32px;
+    min-width: 32px;
   }
 
   .imagen-mascota {

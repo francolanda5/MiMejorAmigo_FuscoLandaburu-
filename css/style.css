@@ -76,6 +76,11 @@ h1.brand-title {
   letter-spacing: 0.5px;
 }
 
+.brand-linea-uno,
+.brand-highlight {
+  display: block;
+}
+
 span.brand-highlight {
   color: var(--naranja);
 }
