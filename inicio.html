@@ -55,7 +55,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="turnos.html">Sacar turno</a>
+                        <a class="nav-link" href="turnos.php">Sacar turno</a>
                     </li>
 
                     <li class="nav-item">
@@ -89,12 +89,13 @@
 
             <nav class="acciones-turnos" aria-label="Acciones principales">
 
-                <a href="turnos.html" class="boton boton-turno">
+                <a href="turnos.php" class="boton boton-turno">
                     <img src="img/iconos/calendario-blanco.png" alt="Calendario" class="icono-boton">
                     Sacar turno
                 </a>
 
-                <a href="#contacto" class="boton boton-whatsapp">
+                <a href="whatsapp://send?text=Hola%2C%20quiero%20hacer%20una%20consulta%20veterinaria"
+                    class="boton boton-whatsapp">
                     <img src="img/iconos/whatsapp-gris.png" alt="WhatsApp" class="icono-boton">
                     WhatsApp
                 </a>
@@ -117,37 +118,37 @@
 
             <div class="lista-servicios">
 
-                <a href="#" class="card-servicio">
+                <a href="#" class="card-servicio" data-bs-toggle="modal" data-bs-target="#modalConsultas">
                     <img src="img/iconos/estetoscopio-azul.png" alt="Ícono de consultas" class="icono-servicio">
                     <h3>Consultas</h3>
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-servicio">
+                <a href="#" class="card-servicio" data-bs-toggle="modal" data-bs-target="#modalVacunacionServicio">
                     <img src="img/iconos/jeringa-naranja.png" alt="Ícono de vacunación" class="icono-servicio">
                     <h3>Vacunación</h3>
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-servicio">
+                <a href="#" class="card-servicio" data-bs-toggle="modal" data-bs-target="#modalAnalisisServicio">
                     <img src="img/iconos/análisis-azul.png" alt="Ícono de análisis" class="icono-servicio">
                     <h3>Análisis</h3>
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-servicio">
+                <a href="#" class="card-servicio" data-bs-toggle="modal" data-bs-target="#modalCirugiasServicio">
                     <img src="img/iconos/cirugia-naranja.png" alt="Ícono de cirugías" class="icono-servicio">
                     <h3>Cirugías</h3>
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-servicio">
+                <a href="#" class="card-servicio" data-bs-toggle="modal" data-bs-target="#modalUrgenciasServicio">
                     <img src="img/iconos/urgencia-azul.png" alt="Ícono de urgencias" class="icono-servicio">
                     <h3>Urgencias</h3>
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-servicio">
+                <a href="#" class="card-servicio" data-bs-toggle="modal" data-bs-target="#modalVerMasServicio">
                     <img src="img/iconos/vermás-naranja.png" alt="Ícono de ver más" class="icono-servicio">
                     <h3>Ver más</h3>
                     <span class="flecha-card">›</span>
@@ -166,7 +167,7 @@
                         <span>de tu mascota</span>
                     </h3>
                     <p>Elegí el día y horario que mejor te convenga. Rápido, fácil y seguro.</p>
-                    <a href="turnos.html" class="boton-cta-turno">Sacar turno</a>
+                    <a href="turnos.php" class="boton-cta-turno">Sacar turno</a>
                 </div>
             </aside>
 
@@ -233,7 +234,7 @@
 
             <div class="lista-consejos">
 
-                <article class="card-consejo">
+                <article class="card-consejo" data-bs-toggle="modal" data-bs-target="#modalCuidadoGeneral">
                     <img src="img/animales/imagen-consejo-1.jpg" alt="Perro corriendo" class="imagen-consejo">
 
                     <div class="contenido-consejo">
@@ -245,7 +246,7 @@
                     <span class="flecha-card">›</span>
                 </article>
 
-                <article class="card-consejo">
+                <article class="card-consejo" data-bs-toggle="modal" data-bs-target="#modalVacunacion">
                     <img src="img/animales/imagen-consejo-2.jpg" alt="Gato descansando" class="imagen-consejo">
 
                     <div class="contenido-consejo">
@@ -257,7 +258,7 @@
                     <span class="flecha-card">›</span>
                 </article>
 
-                <article class="card-consejo">
+                <article class="card-consejo" data-bs-toggle="modal" data-bs-target="#modalPrevencion">
                     <img src="img/animales/imagen-consejo-3.jpg" alt="Perro en el pasto" class="imagen-consejo">
 
                     <div class="contenido-consejo">
@@ -283,7 +284,8 @@
 
             <div class="lista-contacto">
 
-                <a href="#" class="card-contacto">
+                <a href="whatsapp://send?text=Hola%2C%20quiero%20hacer%20una%20consulta%20veterinaria"
+                    class="card-contacto">
                     <img src="img/iconos/whatsapp-celeste.png" alt="Ícono WhatsApp" class="icono-contacto-card">
 
                     <div class="contenido-contacto">
@@ -294,7 +296,7 @@
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-contacto">
+                <a href="tel:1112345678" class="card-contacto">
                     <img src="img/iconos/teléfono-naranja.png" alt="Ícono teléfono" class="icono-contacto-card">
 
                     <div class="contenido-contacto">
@@ -305,7 +307,8 @@
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-contacto">
+                <a href="https://www.google.com/maps/search/?api=1&query=Av.%20Juan%20B%20Alberdi%201234%2C%20CABA%2C%20Argentina"
+                    target="_blank" class="card-contacto">
                     <img src="img/iconos/dirección-celeste.png" alt="Ícono dirección" class="icono-contacto-card">
 
                     <div class="contenido-contacto">
@@ -316,7 +319,7 @@
                     <span class="flecha-card">›</span>
                 </a>
 
-                <a href="#" class="card-contacto">
+                <a href="#" class="card-contacto" data-bs-toggle="modal" data-bs-target="#modalHorarios">
                     <img src="img/iconos/horarios-naranja.png" alt="Ícono horarios" class="icono-contacto-card">
 
                     <div class="contenido-contacto">
@@ -369,7 +372,647 @@
             </a>
         </nav>
 
+        <a href="login_profesional.php" class="link-panel-profesional">
+            Panel profesional
+        </a>
+
     </footer>
+
+    <!-- MODAL CUIDADO GENERAL -->
+    <div class="modal fade modal-consejo" id="modalCuidadoGeneral" tabindex="-1"
+        aria-labelledby="modalCuidadoGeneralLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-consejo">
+
+                    <img src="img/animales/imagen-consejo-1.jpg" alt="Perro cachorro corriendo"
+                        class="imagen-modal-consejo">
+
+                    <h2 id="modalCuidadoGeneralLabel" class="titulo-modal-consejo">
+                        Cuidado general
+                    </h2>
+
+                    <p class="subtitulo-modal-consejo">
+                        Tips para una vida sana y feliz
+                    </p>
+
+                    <p class="texto-modal-consejo">
+                        Los cuidados básicos que brindas todos los días marcan una gran diferencia en la salud, el ánimo
+                        y la calidad de vida de tu mascota. Pequeños hábitos constantes ayudan a prevenir enfermedades,
+                        mantenerla activa y fortalecer su bienestar.
+                    </p>
+
+                    <article class="alerta-modal-consejo">
+                        <img src="img/iconos/cruz-naranja.png" alt="Ícono de consejo" class="icono-alerta-modal">
+
+                        <section class="texto-alerta-modal">
+                            <h3>Consejo de veterinario</h3>
+                            <p>Observá cambios en el apetito, el ánimo o el comportamiento.</p>
+                        </section>
+                    </article>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VACUNACIÓN -->
+    <div class="modal fade modal-consejo" id="modalVacunacion" tabindex="-1" aria-labelledby="modalVacunacionLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-consejo">
+
+                    <img src="img/animales/imagen-consejo-2.jpg" alt="Gato descansando" class="imagen-modal-consejo">
+
+                    <h2 id="modalVacunacionLabel" class="titulo-modal-consejo">
+                        Vacunación
+                    </h2>
+
+                    <p class="subtitulo-modal-consejo">
+                        Como proteger a tu mascota
+                    </p>
+
+                    <p class="texto-modal-consejo">
+                        Las vacunas ayudan a prevenir enfermedades importantes y mantienen protegida a tu mascota en
+                        cada
+                        etapa de su vida. Respetar el calendario de vacunación es clave para cuidar su salud, evitar
+                        contagios y acompañar su crecimiento de forma segura.
+                    </p>
+
+                    <article class="alerta-modal-consejo">
+                        <img src="img/iconos/cruz-naranja.png" alt="Ícono de consejo" class="icono-alerta-modal">
+
+                        <section class="texto-alerta-modal">
+                            <h3>Consejo de veterinario</h3>
+                            <p>Consultá siempre el calendario de vacunas según la edad y especie.</p>
+                        </section>
+                    </article>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PREVENCIÓN -->
+    <div class="modal fade modal-consejo" id="modalPrevencion" tabindex="-1" aria-labelledby="modalPrevencionLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-consejo">
+
+                    <img src="img/animales/imagen-consejo-3.jpg" alt="Perro en el pasto" class="imagen-modal-consejo">
+
+                    <h2 id="modalPrevencionLabel" class="titulo-modal-consejo">
+                        Prevención
+                    </h2>
+
+                    <p class="subtitulo-modal-consejo">
+                        Clave para prevenir enfermedades
+                    </p>
+
+                    <p class="texto-modal-consejo">
+                        La prevención permite detectar a tiempo posibles problemas de salud y evitar complicaciones
+                        futuras. Los controles veterinarios, la higiene, la alimentación adecuada y la observación
+                        diaria
+                        ayudan a mantener a tu mascota sana, activa y protegida.
+                    </p>
+
+                    <article class="alerta-modal-consejo">
+                        <img src="img/iconos/cruz-naranja.png" alt="Ícono de consejo" class="icono-alerta-modal">
+
+                        <section class="texto-alerta-modal">
+                            <h3>Consejo de veterinario</h3>
+                            <p>Realizá controles periódicos aunque tu mascota parezca estar bien.</p>
+                        </section>
+                    </article>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HORARIOS -->
+    <div class="modal fade modal-consejo" id="modalHorarios" tabindex="-1" aria-labelledby="modalHorariosLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-consejo">
+
+                    <section class="encabezado-modal-horarios">
+                        <img src="img/iconos/horarios-naranja.png" alt="Ícono de horarios" class="icono-modal-horarios">
+
+                        <section>
+                            <h2 id="modalHorariosLabel" class="titulo-modal-consejo">
+                                Horarios de atención
+                            </h2>
+
+                            <p class="subtitulo-modal-consejo">
+                                Conocé nuestros días y horarios disponibles
+                            </p>
+                        </section>
+                    </section>
+
+                    <section class="lista-horarios-modal">
+
+                        <article class="fila-horario">
+                            <span class="dia-horario">Lunes a Viernes</span>
+                            <span class="hora-horario">9:00 a 20:00 hs</span>
+                        </article>
+
+                        <article class="fila-horario">
+                            <span class="dia-horario">Sábados</span>
+                            <span class="hora-horario">9:00 a 14:00 hs</span>
+                        </article>
+
+                        <article class="fila-horario">
+                            <span class="dia-horario">Domingos</span>
+                            <span class="hora-horario">Cerrado</span>
+                        </article>
+
+                        <article class="fila-horario">
+                            <span class="dia-horario">Urgencias</span>
+                            <span class="hora-horario">Atención 24 hs</span>
+                        </article>
+
+                    </section>
+
+                    <article class="alerta-modal-consejo alerta-horarios">
+                        <img src="img/iconos/cruz-naranja.png" alt="Ícono de aviso" class="icono-alerta-modal">
+
+                        <section class="texto-alerta-modal">
+                            <h3>Recomendación</h3>
+                            <p>Para una mejor atención, reservá tu turno antes de acercarte.</p>
+                        </section>
+                    </article>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONSULTAS -->
+    <div class="modal fade modal-consejo" id="modalConsultas" tabindex="-1" aria-labelledby="modalConsultasLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-servicio">
+
+                    <header class="encabezado-modal-servicio">
+                        <img src="img/iconos/estetoscopio-azul.png" alt="Ícono de consultas"
+                            class="icono-modal-servicio">
+
+                        <div>
+                            <h2 id="modalConsultasLabel" class="titulo-modal-consejo">
+                                Consultas
+                            </h2>
+
+                            <p class="subtitulo-modal-consejo">
+                                Profesionales disponibles para clínica general
+                            </p>
+                        </div>
+                    </header>
+
+                    <section class="lista-doctores-modal">
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctora-1.png" alt="Dra. Ana Pérez">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dra. Ana Pérez</h3>
+                                <h4>Clínica general</h4>
+                                <p>Chequeos, controles y consultas de rutina.</p>
+                            </div>
+                        </article>
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctora-2.png" alt="Dra. Valeria Gomez">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dra. Valeria Gomez</h3>
+                                <h4>Clínica general</h4>
+                                <p>Atención integral y seguimiento preventivo.</p>
+                            </div>
+                        </article>
+
+                    </section>
+
+                    <section class="info-extra-servicio">
+                        <img src="img/iconos/calendario-blanco.png" alt="Ícono calendario" class="icono-info-servicio">
+
+                        <div>
+                            <h3>Reservá con anticipación</h3>
+                            <p>Podés elegir la profesional al momento de sacar el turno para tu mascota.</p>
+                        </div>
+                    </section>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SERVICIO VACUNACIÓN -->
+    <div class="modal fade modal-consejo" id="modalVacunacionServicio" tabindex="-1"
+        aria-labelledby="modalVacunacionServicioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-servicio">
+
+                    <header class="encabezado-modal-servicio">
+                        <img src="img/iconos/jeringa-naranja.png" alt="Ícono de vacunación"
+                            class="icono-modal-servicio">
+
+                        <div>
+                            <h2 id="modalVacunacionServicioLabel" class="titulo-modal-consejo">
+                                Vacunación
+                            </h2>
+
+                            <p class="subtitulo-modal-consejo">
+                                Nuestro equipo especializado en vacunas y prevención
+                            </p>
+                        </div>
+                    </header>
+
+                    <section class="lista-doctores-modal">
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctora-3.png" alt="Dra. Camila Torres">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dra. Camila Torres</h3>
+                                <h4>Vacunación</h4>
+                                <p>Aplicación de vacunas y control del calendario sanitario.</p>
+                            </div>
+                        </article>
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctor-4.png" alt="Dr. Martin Gómez">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dr. Martin Gómez</h3>
+                                <h4>Medicina preventiva</h4>
+                                <p>Seguimiento preventivo y orientación para el cuidado anual.</p>
+                            </div>
+                        </article>
+
+                    </section>
+
+                    <section class="info-extra-servicio">
+                        <img src="img/iconos/calendario-blanco.png" alt="Ícono calendario" class="icono-info-servicio">
+
+                        <div>
+                            <h3>Calendario de vacunación</h3>
+                            <p>Revisá junto al profesional qué vacunas necesita tu mascota según su edad.</p>
+                        </div>
+                    </section>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SERVICIO ANÁLISIS -->
+    <div class="modal fade modal-consejo" id="modalAnalisisServicio" tabindex="-1"
+        aria-labelledby="modalAnalisisServicioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-servicio">
+
+                    <header class="encabezado-modal-servicio">
+                        <img src="img/iconos/análisis-azul.png" alt="Ícono de análisis" class="icono-modal-servicio">
+
+                        <div>
+                            <h2 id="modalAnalisisServicioLabel" class="titulo-modal-consejo">
+                                Análisis
+                            </h2>
+
+                            <p class="subtitulo-modal-consejo">
+                                Nuestro equipo especializado en estudios y laboratorio
+                            </p>
+                        </div>
+                    </header>
+
+                    <section class="lista-doctores-modal">
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctora-6.png" alt="Dra. Carla Romero">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dra. Carla Romero</h3>
+                                <h4>Análisis clínicos</h4>
+                                <p>Evaluación de estudios, controles y chequeos de salud.</p>
+                            </div>
+                        </article>
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctor-5.png " alt="Dr. Pablo Ruiz">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dr. Pablo Ruiz</h3>
+                                <h4>Laboratorio</h4>
+                                <p>Procesamiento de muestras y seguimiento de resultados.</p>
+                            </div>
+                        </article>
+
+                    </section>
+
+                    <section class="info-extra-servicio">
+                        <img src="img/iconos/calendario-blanco.png" alt="Ícono calendario" class="icono-info-servicio">
+
+                        <div>
+                            <h3>Resultados y seguimiento</h3>
+                            <p>Los estudios permiten detectar problemas a tiempo y acompañar mejor cada tratamiento.</p>
+                        </div>
+                    </section>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SERVICIO CIRUGÍAS -->
+    <div class="modal fade modal-consejo" id="modalCirugiasServicio" tabindex="-1"
+        aria-labelledby="modalCirugiasServicioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-servicio">
+
+                    <header class="encabezado-modal-servicio">
+                        <img src="img/iconos/cirugia-naranja.png" alt="Ícono de cirugías" class="icono-modal-servicio">
+
+                        <div>
+                            <h2 id="modalCirugiasServicioLabel" class="titulo-modal-consejo">
+                                Cirugías
+                            </h2>
+
+                            <p class="subtitulo-modal-consejo">
+                                Nuestro equipo especializado en procedimientos quirúrgicos
+                            </p>
+                        </div>
+                    </header>
+
+                    <section class="lista-doctores-modal">
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctor-8.png" alt="Dr. Julian Vivas">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dr. Julian Vivas</h3>
+                                <h4>Cirugía veterinaria</h4>
+                                <p>Procedimientos quirúrgicos y controles postoperatorios.</p>
+                            </div>
+                        </article>
+
+                        <article class="card-doctor-modal">
+                            <div class="foto-doctor-modal">
+                                <img src="img/doctores/doctora-7.png" alt="Dra. Laura Díaz">
+                            </div>
+
+                            <div class="info-doctor-modal">
+                                <h3>Dra. Laura Díaz</h3>
+                                <h4>Cirugía veterinaria</h4>
+                                <p>Evaluación previa, acompañamiento y recuperación quirúrgica.</p>
+                            </div>
+                        </article>
+
+                    </section>
+
+                    <section class="info-extra-servicio">
+                        <img src="img/iconos/calendario-blanco.png" alt="Ícono calendario" class="icono-info-servicio">
+
+                        <div>
+                            <h3>Atención segura y cuidada</h3>
+                            <p>Antes de cada cirugía se realiza una evaluación para cuidar la salud de tu mascota.</p>
+                        </div>
+                    </section>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SERVICIO URGENCIAS -->
+    <div class="modal fade modal-consejo" id="modalUrgenciasServicio" tabindex="-1"
+        aria-labelledby="modalUrgenciasServicioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-servicio">
+
+                    <header class="encabezado-modal-servicio">
+                        <img src="img/iconos/urgencia-azul.png" alt="Ícono de urgencias" class="icono-modal-servicio">
+
+                        <div>
+                            <h2 id="modalUrgenciasServicioLabel" class="titulo-modal-consejo">
+                                Urgencias
+                            </h2>
+
+                            <p class="subtitulo-modal-consejo">
+                                Atención rápida ante situaciones importantes
+                            </p>
+                        </div>
+                    </header>
+
+                    <p class="texto-modal-consejo">
+                        Si tu mascota presenta síntomas repentinos o un cambio fuerte en su comportamiento, es
+                        importante
+                        actuar con rapidez. Nuestro equipo puede orientarte para saber si necesita atención inmediata o
+                        una
+                        consulta prioritaria.
+                    </p>
+
+                    <section class="lista-urgencias-modal">
+
+                        <article class="item-urgencia-modal">
+                            <span class="numero-urgencia">1</span>
+
+                            <div>
+                                <h3>Observá los síntomas</h3>
+                                <p>Revisá si respira bien, si puede moverse y si responde normalmente.</p>
+                            </div>
+                        </article>
+
+                        <article class="item-urgencia-modal">
+                            <span class="numero-urgencia">2</span>
+
+                            <div>
+                                <h3>Contactanos rápido</h3>
+                                <p>Comunicate con la veterinaria para recibir indicaciones antes de trasladarla.</p>
+                            </div>
+                        </article>
+
+                        <article class="item-urgencia-modal">
+                            <span class="numero-urgencia">3</span>
+
+                            <div>
+                                <h3>No la automediques</h3>
+                                <p>No le des medicamentos sin indicación profesional.</p>
+                            </div>
+                        </article>
+
+                    </section>
+
+                    <section class="bloque-urgencia-importante">
+                        <img src="img/iconos/whatsapp-blanco.png" alt="Ícono WhatsApp"
+                            class="icono-urgencia-importante">
+
+                        <div>
+                            <h3>Atención prioritaria</h3>
+                            <p>Ante golpes, dificultad para respirar, vómitos constantes o decaimiento extremo,
+                                contactanos
+                                de inmediato.</p>
+                        </div>
+                    </section>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SERVICIO VER MÁS -->
+    <div class="modal fade modal-consejo" id="modalVerMasServicio" tabindex="-1"
+        aria-labelledby="modalVerMasServicioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-consejo">
+            <div class="modal-content contenido-modal-consejo">
+
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+
+                <section class="cuerpo-modal-servicio">
+
+                    <header class="encabezado-modal-servicio">
+                        <img src="img/iconos/vermás-naranja.png" alt="Ícono de ver más" class="icono-modal-servicio">
+
+                        <div>
+                            <h2 id="modalVerMasServicioLabel" class="titulo-modal-consejo">
+                                Más servicios
+                            </h2>
+
+                            <p class="subtitulo-modal-consejo">
+                                Otros cuidados para acompañar el bienestar de tu mascota
+                            </p>
+                        </div>
+                    </header>
+
+                    <p class="texto-modal-consejo">
+                        Además de la atención veterinaria principal, contamos con servicios complementarios pensados
+                        para
+                        cuidar a tu mascota en su día a día, prevenir problemas frecuentes y mejorar su calidad de vida.
+                    </p>
+
+                    <section class="lista-vermas-modal">
+
+                        <article class="item-vermas-modal">
+                            <span class="punto-vermas"></span>
+
+                            <div>
+                                <h3>Baño y estética</h3>
+                                <p>Higiene, corte y cuidado del pelaje según las necesidades de cada mascota.</p>
+                            </div>
+                        </article>
+
+                        <article class="item-vermas-modal">
+                            <span class="punto-vermas"></span>
+
+                            <div>
+                                <h3>Control nutricional</h3>
+                                <p>Orientación sobre alimentación, peso saludable y hábitos de cuidado.</p>
+                            </div>
+                        </article>
+
+                        <article class="item-vermas-modal">
+                            <span class="punto-vermas"></span>
+
+                            <div>
+                                <h3>Desparasitación</h3>
+                                <p>Prevención y control de parásitos internos y externos.</p>
+                            </div>
+                        </article>
+
+                        <article class="item-vermas-modal">
+                            <span class="punto-vermas"></span>
+
+                            <div>
+                                <h3>Certificados veterinarios</h3>
+                                <p>Documentación para viajes, controles o trámites específicos.</p>
+                            </div>
+                        </article>
+
+                    </section>
+
+                    <section class="bloque-vermas-final">
+                        <img src="img/iconos/calendario-blanco.png" alt="Ícono calendario" class="icono-vermas-final">
+
+                        <div>
+                            <h3>Consultá disponibilidad</h3>
+                            <p>Acercate a la veterinaria o escribinos por WhatsApp para conocer más sobre estos
+                                servicios.</p>
+                        </div>
+                    </section>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

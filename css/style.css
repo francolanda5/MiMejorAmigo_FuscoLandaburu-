@@ -135,10 +135,10 @@ span.white-blob {
 
 img.dog-img {
   position: absolute;
-  bottom: clamp(-92px, -11svh, -64px);
+  bottom: clamp(-72px, -2svh, -44px);
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(560px, 171vw, 720px);
+  width: clamp(610px, 185vw, 780px);
   max-width: none;
   height: auto;
   z-index: 2;

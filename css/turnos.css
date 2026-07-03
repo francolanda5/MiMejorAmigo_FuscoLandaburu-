@@ -1,16 +1,20 @@
 /* ============================================
-   turnos.css - SOLO CELULARES
+   turnos.css - SACAR TURNO
    ============================================ */
 
 :root {
   --naranja: #FF6C00;
+  --naranja-hover: #FF7A1E;
   --naranja-suave: #FFF0E8;
   --celeste: #25AFFF;
   --celeste-suave: #92D6F7;
+  --celeste-fondo: #F7FBFD;
   --texto-oscuro: #222222;
   --texto-gris: #777777;
   --blanco: #FFFFFF;
   --borde-suave: #E6E6E6;
+  --verde-suave: #E7F8EF;
+  --verde: #1A9B59;
 }
 
 * {
@@ -23,13 +27,9 @@
   display: none !important;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: 'Poppins', sans-serif;
-  background: var(--blanco);
+  background: var(--celeste-fondo);
   color: var(--texto-oscuro);
 }
 
@@ -37,48 +37,31 @@ body {
    CONTENEDOR GENERAL
    ============================================ */
 
-.pagina-reserva-turno {
-  width: 100%;
-  min-height: 100svh;
-  background: var(--blanco);
-}
-
-.paso-turno {
+.pagina-turnos {
   width: 100%;
   max-width: 430px;
   min-height: 100svh;
   margin: 0 auto;
-  padding: 32px clamp(28px, 7vw, 34px) 34px;
+  padding: 28px clamp(22px, 6vw, 30px) 34px;
 }
 
 /* ============================================
-   ENCABEZADO DE PANTALLA
+   ENCABEZADO
    ============================================ */
 
-.encabezado-pantalla {
+.encabezado-turnos {
   width: 100%;
   display: grid;
-  grid-template-columns: 38px 1fr 38px;
+  grid-template-columns: 38px 1fr;
   align-items: center;
-  margin-bottom: 38px;
-}
-
-.encabezado-pantalla h1 {
-  margin: 0;
-  color: var(--texto-oscuro);
-  font-size: clamp(1.25rem, 5.5vw, 1.55rem);
-  font-weight: 800;
-  line-height: 1.1;
-  text-align: center;
+  column-gap: 12px;
+  margin-bottom: 28px;
 }
 
 .boton-volver {
   width: 34px;
   height: 34px;
-  border: none;
-  background: transparent;
   color: var(--texto-oscuro);
-  font-family: 'Poppins', sans-serif;
   font-size: 2.15rem;
   font-weight: 500;
   line-height: 0.8;
@@ -86,44 +69,228 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  cursor: pointer;
 }
 
-.espacio-encabezado {
-  display: block;
+.titulos-turnos p {
+  margin: 0 0 2px;
+  color: var(--celeste);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.titulos-turnos h1 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(1.35rem, 6vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1.1;
 }
 
 /* ============================================
-   TEXTOS GENERALES
+   ESTRUCTURA
    ============================================ */
 
-.texto-intro-turno {
-  width: 70%;
-  margin: 0 auto 78px;
-  color: var(--texto-gris);
-  font-size: clamp(0.8rem, 3.5vw, 0.95rem);
-  font-weight: 500;
-  line-height: 1.35;
-  text-align: center;
+.seccion-paso {
+  width: 100%;
 }
 
-.formulario-turno {
+.card-turno,
+.bloque-formulario,
+.card-resumen {
+  width: 100%;
+  border: 1px solid var(--borde-suave);
+  border-radius: 14px;
+  background: var(--blanco);
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.10);
+}
+
+.card-presentacion {
+  margin-bottom: 20px;
+  padding: 22px 18px;
+  background: var(--celeste);
+  border: none;
+}
+
+.etiqueta-paso {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--blanco);
+  color: var(--celeste);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.card-presentacion h2 {
+  margin: 0 0 8px;
+  color: var(--blanco);
+  font-size: clamp(1.1rem, 5vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.card-presentacion p {
+  margin: 0;
+  color: var(--blanco);
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.form-turno {
   width: 100%;
 }
 
 .bloque-formulario {
-  width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
+  padding: 18px 16px;
 }
 
-.bloque-formulario h2,
-.bloque-formulario legend {
-  margin: 0 0 18px;
+.bloque-formulario h2 {
+  margin: 0 0 14px;
   color: var(--texto-oscuro);
-  font-size: clamp(0.98rem, 4.4vw, 1.15rem);
+  font-size: 1rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
 }
+
+/* ============================================
+   CAMPOS
+   ============================================ */
+
+.campo-form {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.campo-form:last-child {
+  margin-bottom: 0;
+}
+
+.campo-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--texto-oscuro);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.campo-form input,
+.campo-form select,
+.campo-form textarea {
+  width: 100%;
+  border: 1px solid var(--borde-suave);
+  border-radius: 9px;
+  background: var(--blanco);
+  color: var(--texto-oscuro);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  outline: none;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
+}
+
+.campo-form input,
+.campo-form select {
+  min-height: 54px;
+  padding: 0 15px;
+}
+
+.campo-form textarea {
+  min-height: 92px;
+  padding: 14px 15px;
+  line-height: 1.35;
+  resize: none;
+}
+
+.campo-form input:focus,
+.campo-form select:focus,
+.campo-form textarea:focus {
+  border-color: var(--celeste);
+  box-shadow: 0 0 0 3px rgba(37, 175, 255, 0.16);
+}
+
+/* ============================================
+   MENSAJES
+   ============================================ */
+
+.mensaje-error,
+.mensaje-info {
+  width: 100%;
+  min-height: 20px;
+  margin: 12px 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.mensaje-error {
+  color: var(--naranja);
+}
+
+.mensaje-info {
+  color: var(--texto-gris);
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+.boton-principal,
+.boton-secundario {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 9px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boton-principal {
+  background: var(--naranja);
+  color: var(--blanco);
+}
+
+.boton-principal:hover {
+  background: var(--naranja-hover);
+}
+
+.boton-secundario {
+  margin-top: 12px;
+  background: var(--naranja-suave);
+  color: var(--naranja);
+}
+
+.boton-principal:active,
+.boton-secundario:active,
+.boton-horario:active,
+.boton-mascota-selector:active,
+.card-mascota-opcion:active {
+  transform: scale(0.98);
+}
+
+.boton-confirmar {
+  margin-top: 18px;
+}
+
+.link-inicio {
+  margin-top: 18px;
+}
+
+/* ============================================
+   MASCOTAS
+   ============================================ */
 
 .texto-oculto {
   position: absolute;
@@ -134,339 +301,200 @@ body {
   white-space: nowrap;
 }
 
-/* ============================================
-   FORMULARIO PASO 1
-   ============================================ */
-
-.grupo-campos {
+.selector-mascota {
+  position: relative;
   width: 100%;
   border: none;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.grupo-campos input {
-  width: 100%;
-  min-height: 66px;
-  border: 1px solid #CFCFCF;
-  border-radius: 9px;
-  background: var(--blanco);
-  color: var(--texto-oscuro);
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(0.8rem, 3.5vw, 0.95rem);
-  font-weight: 500;
-  text-align: center;
-  outline: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-}
-
-.grupo-campos input::placeholder {
-  color: #7C7C7C;
-}
-
-.grupo-campos input:focus,
-textarea:focus,
-.card-fecha-turno input:focus,
-.card-select-turno select:focus {
-  border-color: var(--celeste);
-  box-shadow: 0 0 0 3px rgba(37, 175, 255, 0.16);
-}
-
-/* ============================================
-   SELECCIÓN DE MASCOTA
-   ============================================ */
-
-.lista-mascotas {
-  width: 100%;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
 }
 
 .card-mascota {
   width: 100%;
-  min-height: 66px;
-  padding: 10px 14px;
+  min-height: 72px;
+  padding: 12px;
   border: 1px solid var(--borde-suave);
-  border-radius: 9px;
+  border-radius: 12px;
   background: var(--blanco);
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+  gap: 12px;
+  text-align: left;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
 }
 
-.card-mascota-opcion {
-  position: relative;
+.boton-mascota-selector {
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
 }
 
-.card-mascota-opcion input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+.boton-mascota-selector:disabled {
+  cursor: default;
+  opacity: 1;
 }
 
-.card-mascota-opcion.mascota-activa {
+.mascota-activa {
   border-color: var(--celeste);
-  box-shadow: 0 0 0 3px rgba(37, 175, 255, 0.14);
+  box-shadow: 0 0 0 3px rgba(37, 175, 255, 0.13);
 }
 
+.avatar-mascota-contenedor,
 .avatar-mascota {
-  width: clamp(44px, 12vw, 52px);
-  min-width: clamp(44px, 12vw, 52px);
-  height: clamp(44px, 12vw, 52px);
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
   border-radius: 50%;
-  object-fit: cover;
+  overflow: hidden;
   display: block;
-  margin-right: 18px;
-  background: #D8D8D8;
+}
+
+.avatar-mascota img,
+.avatar-mascota {
+  object-fit: cover;
 }
 
 .avatar-mascota-vacio {
-  background: #D8D8D8;
+  background: var(--celeste-suave);
+  position: relative;
+}
+
+.avatar-mascota-vacio::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--blanco);
+  position: absolute;
+  inset: 0;
+  margin: auto;
 }
 
 .contenido-mascota {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
-.contenido-mascota h3,
 .nombre-mascota {
-  margin: 0;
   color: var(--texto-oscuro);
-  font-size: clamp(0.95rem, 4.2vw, 1.08rem);
+  font-size: 0.88rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
 .raza-mascota {
   color: var(--texto-gris);
-  font-size: clamp(0.72rem, 3.1vw, 0.84rem);
-  font-weight: 500;
-  line-height: 1.15;
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.flecha-card {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 50%;
+  background: var(--naranja-suave);
+  color: var(--naranja);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lista-mascotas {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-mascota-opcion {
+  border: 1px solid var(--borde-suave);
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.selector-sin-opciones .lista-mascotas {
+  display: none;
+}
+
+.boton-nueva-mascota {
+  margin-top: 10px;
 }
 
 /* ============================================
-   AVISO DE PRIVACIDAD
+   PANEL NUEVA MASCOTA
    ============================================ */
 
-.aviso-privacidad {
+.panel-nueva-mascota {
   width: 100%;
-  margin: 42px 0;
-  padding: 18px 22px;
-  border-radius: 8px;
-  background: var(--celeste-suave);
-  text-align: center;
+  margin-top: 18px;
+  padding: 18px 16px;
+  border: 1px solid rgba(37, 175, 255, 0.35);
+  border-radius: 14px;
+  background: #F7FBFD;
 }
 
-.aviso-privacidad p {
-  margin: 0;
-  color: #5C6F78;
-  font-size: clamp(0.68rem, 3vw, 0.78rem);
+.panel-nueva-mascota h3 {
+  margin: 0 0 8px;
+  color: var(--texto-oscuro);
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.panel-nueva-mascota p {
+  margin: 0 0 16px;
+  color: var(--texto-gris);
+  font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.35;
 }
 
-/* ============================================
-   BOTONES PRINCIPALES
-   ============================================ */
-
-.boton-principal {
-  width: 100%;
-  min-height: 48px;
-  border: none;
-  border-radius: 8px;
-  background: var(--naranja);
-  color: var(--blanco);
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.15rem, 5vw, 1.35rem);
-  font-weight: 800;
-  line-height: 1;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.boton-principal:active {
-  transform: scale(0.98);
-}
-
-.mensaje-error {
-  min-height: 18px;
-  margin: 12px 0 0;
-  color: var(--naranja);
-  font-size: 0.78rem;
-  font-weight: 600;
-  line-height: 1.25;
-  text-align: center;
-}
-
-/* ============================================
-   CARD SUPERIOR PASO 2
-   ============================================ */
-
-.card-reserva {
-  width: 100%;
-  min-height: 82px;
-  margin-bottom: 30px;
-  padding: 16px 22px;
-  border-radius: 8px;
-  background: var(--celeste);
-  display: flex;
-  align-items: center;
-}
-
-.circulo-icono-reserva {
-  width: 46px;
-  min-width: 46px;
-  height: 46px;
-  margin-right: 18px;
-  border-radius: 50%;
-  background: var(--blanco);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.icono-turno {
-  width: 34px;
-  height: auto;
-  display: block;
-}
-
-.contenido-card-reserva h2 {
-  margin: 0 0 4px;
-  color: var(--blanco);
-  font-size: clamp(1rem, 4.5vw, 1.18rem);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.contenido-card-reserva p {
-  margin: 0;
-  color: var(--blanco);
-  font-size: clamp(0.78rem, 3.5vw, 0.92rem);
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-/* ============================================
-   TIPO DE CONSULTA
-   ============================================ */
-
-.card-opciones {
-  width: 100%;
-  padding: 20px 18px;
-  border: 1px solid var(--borde-suave);
-  border-radius: 9px;
-  background: var(--blanco);
+.acciones-nueva-mascota {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+  gap: 10px;
 }
 
-.opcion-radio {
+/* ============================================
+   OPCIONES DE CONSULTA
+   ============================================ */
+
+.opciones-consulta {
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-opcion-consulta {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 14px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 10px;
+  background: var(--blanco);
   display: flex;
   align-items: center;
+  gap: 10px;
   cursor: pointer;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
 }
 
-.opcion-radio input {
-  appearance: none;
-  width: 22px;
-  min-width: 22px;
-  height: 22px;
-  margin-right: 18px;
-  border: 2px solid var(--naranja);
-  border-radius: 50%;
-  background: var(--blanco);
-  position: relative;
+.card-opcion-consulta input {
+  accent-color: var(--naranja);
 }
 
-.opcion-radio input:checked::after {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  background: var(--naranja);
-}
-
-.opcion-radio span {
+.card-opcion-consulta span {
   color: var(--texto-oscuro);
-  font-size: clamp(0.82rem, 3.5vw, 0.95rem);
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-/* ============================================
-   PROFESIONAL
-   ============================================ */
-
-.card-select-turno {
-  width: 100%;
-  min-height: 66px;
-  padding: 12px 20px;
-  border: 1px solid var(--borde-suave);
-  border-radius: 9px;
-  background: var(--blanco);
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
-}
-
-.card-select-turno select {
-  width: 100%;
-  border: none;
-  background: transparent;
-  color: var(--texto-oscuro);
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(0.78rem, 3.3vw, 0.9rem);
-  font-weight: 500;
-  line-height: 1.2;
-  outline: none;
-}
-
-/* ============================================
-   FECHA
-   ============================================ */
-
-.card-fecha-turno {
-  width: 100%;
-  min-height: 66px;
-  padding: 12px 20px;
-  border: 1px solid var(--borde-suave);
-  border-radius: 9px;
-  background: var(--blanco);
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
-}
-
-.icono-turno-dato {
-  width: 32px;
-  min-width: 32px;
-  height: auto;
-  display: block;
-  margin-right: 16px;
-}
-
-.card-fecha-turno input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  color: var(--texto-oscuro);
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(0.8rem, 3.4vw, 0.92rem);
-  font-weight: 500;
-  line-height: 1.2;
-  outline: none;
+  font-size: 0.86rem;
+  font-weight: 700;
 }
 
 /* ============================================
@@ -475,281 +503,124 @@ textarea:focus,
 
 .card-horarios {
   width: 100%;
-  min-height: 66px;
-  padding: 16px 18px;
-  border: 1px solid var(--borde-suave);
-  border-radius: 9px;
-  background: var(--blanco);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+  border: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .boton-horario {
-  min-width: 50px;
-  min-height: 34px;
-  border: none;
-  border-radius: 18px;
-  background: transparent;
-  color: var(--celeste);
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(0.7rem, 3vw, 0.82rem);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.boton-horario.horario-activo {
-  border: 1px solid var(--naranja);
-  background: var(--naranja-suave);
-  color: var(--naranja);
-}
-
-/* ============================================
-   OBSERVACIONES
-   ============================================ */
-
-textarea {
-  width: 100%;
-  min-height: 92px;
-  padding: 18px 20px;
+  min-height: 46px;
   border: 1px solid var(--borde-suave);
   border-radius: 9px;
   background: var(--blanco);
   color: var(--texto-oscuro);
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(0.78rem, 3.4vw, 0.92rem);
-  font-weight: 500;
-  line-height: 1.35;
-  resize: none;
-  outline: none;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
 }
 
-textarea::placeholder {
-  color: #8A8A8A;
+.boton-horario:disabled {
+  color: var(--texto-gris);
+  cursor: default;
+}
+
+.horario-activo {
+  border-color: var(--naranja);
+  background: var(--naranja);
+  color: var(--blanco);
 }
 
 /* ============================================
-   RESUMEN DEL TURNO
+   RESUMEN
    ============================================ */
 
-.card-resumen-turno {
-  width: 100%;
-  margin: 20px 0 38px;
-  padding: 14px 16px;
-  border: 1px solid var(--borde-suave);
-  border-radius: 9px;
-  background: var(--blanco);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.10);
+.card-resumen {
+  margin-top: 20px;
+  padding: 18px 16px;
+}
+
+.card-resumen h2 {
+  margin: 0 0 14px;
+  color: var(--texto-oscuro);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .fila-resumen {
   display: grid;
-  grid-template-columns: 24px 1fr 1.6fr;
-  align-items: center;
-  column-gap: 10px;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--borde-suave);
 }
 
-.icono-resumen {
-  width: 23px;
-  height: auto;
-  display: block;
+.fila-resumen:last-child {
+  border-bottom: none;
 }
 
-.resumen-etiqueta {
+.fila-resumen span {
   color: var(--texto-gris);
-  font-size: clamp(0.76rem, 3.2vw, 0.88rem);
-  font-weight: 500;
+  font-size: 0.76rem;
+  font-weight: 600;
 }
 
 .fila-resumen strong {
-  color: var(--texto-gris);
-  font-size: clamp(0.72rem, 3.1vw, 0.86rem);
-  font-weight: 500;
-  line-height: 1.15;
+  color: var(--texto-oscuro);
+  font-size: 0.78rem;
+  font-weight: 800;
   text-align: right;
+  line-height: 1.25;
 }
 
 /* ============================================
-   PANTALLA DE ÉXITO
+   ÉXITO
    ============================================ */
 
-.paso-exito:not([hidden]) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .card-exito {
-  width: 100%;
-  padding: 36px 24px 28px;
-  border: 1px solid var(--borde-suave);
-  border-radius: 14px;
-  background: var(--blanco);
+  padding: 28px 20px;
   text-align: center;
-  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.12);
 }
 
-.circulo-exito {
-  width: 92px;
-  height: 92px;
-  margin: 0 auto 24px;
-  border-radius: 50%;
-  background: var(--celeste);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.icono-exito {
-  width: 64px;
-  height: auto;
-  display: block;
-}
-
-.card-exito h1 {
-  margin: 0;
+.card-exito h2 {
+  margin: 0 0 10px;
   color: var(--texto-oscuro);
-  font-size: clamp(1.25rem, 5.6vw, 1.6rem);
+  font-size: 1.35rem;
   font-weight: 800;
   line-height: 1.15;
 }
 
 .card-exito p {
-  width: 80%;
-  margin: 18px auto 28px;
+  margin: 0;
   color: var(--texto-gris);
-  font-size: clamp(0.84rem, 3.6vw, 1rem);
+  font-size: 0.88rem;
   font-weight: 500;
-  line-height: 1.35;
-}
-
-.boton-volver-inicio {
-  min-height: 46px;
-  font-size: clamp(1rem, 4.4vw, 1.2rem);
+  line-height: 1.4;
 }
 
 /* ============================================
-   AJUSTES PARA CELULARES BAJOS
-   ============================================ */
-
-@media (max-height: 760px) {
-  .paso-turno {
-    padding-top: 28px;
-  }
-
-  .encabezado-pantalla {
-    margin-bottom: 34px;
-  }
-
-  .texto-intro-turno {
-    margin-bottom: 62px;
-  }
-
-  .bloque-formulario {
-    margin-bottom: 22px;
-  }
-
-  .aviso-privacidad {
-    margin: 34px 0;
-  }
-}
-
-@media (max-height: 700px) {
-  .paso-turno {
-    padding-top: 24px;
-    padding-bottom: 28px;
-  }
-
-  .encabezado-pantalla {
-    margin-bottom: 28px;
-  }
-
-  .texto-intro-turno {
-    margin-bottom: 48px;
-  }
-
-  .grupo-campos {
-    gap: 14px;
-  }
-
-  .grupo-campos input {
-    min-height: 58px;
-  }
-
-  .aviso-privacidad {
-    margin: 28px 0;
-  }
-
-  .card-reserva {
-    margin-bottom: 24px;
-  }
-
-  .card-resumen-turno {
-    margin-bottom: 30px;
-  }
-
-  .card-exito {
-    padding-top: 30px;
-    padding-bottom: 24px;
-  }
-
-  .circulo-exito {
-    width: 82px;
-    height: 82px;
-    margin-bottom: 20px;
-  }
-
-  .icono-exito {
-    width: 56px;
-  }
-}
-
-/* ============================================
-   AJUSTE PARA CELULARES MUY ANGOSTOS
+   AJUSTES CELULARES MUY ANGOSTOS
    ============================================ */
 
 @media (max-width: 359px) {
-  .paso-turno {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-
-  .texto-intro-turno {
-    width: 82%;
+  .pagina-turnos {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .card-horarios {
-    padding-left: 12px;
-    padding-right: 12px;
-    gap: 2px;
-  }
-
-  .boton-horario {
-    min-width: 44px;
-    font-size: 0.66rem;
+    grid-template-columns: 1fr;
   }
 
   .fila-resumen {
-    grid-template-columns: 22px 0.9fr 1.5fr;
-    column-gap: 8px;
-  }
-
-  .resumen-etiqueta {
-    font-size: 0.72rem;
+    grid-template-columns: 1fr;
+    gap: 3px;
   }
 
   .fila-resumen strong {
-    font-size: 0.68rem;
-  }
-
-  .card-select-turno select,
-  .card-fecha-turno input {
-    font-size: 0.72rem;
+    text-align: left;
   }
 }

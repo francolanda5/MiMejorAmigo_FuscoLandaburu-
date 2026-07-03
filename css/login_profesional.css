@@ -1,0 +1,188 @@
+/* ============================================
+   login_profesional.css - LOGIN PROFESIONAL
+   ============================================ */
+
+:root {
+  --naranja: #FF6C00;
+  --naranja-suave: #FFF0E8;
+  --celeste: #25AFFF;
+  --celeste-suave: #92D6F7;
+  --texto-oscuro: #222222;
+  --texto-gris: #777777;
+  --blanco: #FFFFFF;
+  --borde-suave: #E6E6E6;
+  --verde-suave: #E7F8EF;
+  --verde: #1A9B59;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #F7FBFD;
+  color: var(--texto-oscuro);
+}
+
+/* ============================================
+   CONTENEDOR
+   ============================================ */
+
+.pagina-login-profesional {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 34px clamp(24px, 7vw, 34px);
+  display: flex;
+  align-items: center;
+}
+
+.card-login-profesional {
+  width: 100%;
+  padding: 26px 20px 24px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 16px;
+  background: var(--blanco);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   ENCABEZADO
+   ============================================ */
+
+.encabezado-login {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  column-gap: 12px;
+  margin-bottom: 22px;
+}
+
+.boton-volver {
+  width: 34px;
+  height: 34px;
+  color: var(--texto-oscuro);
+  font-size: 2.15rem;
+  font-weight: 500;
+  line-height: 0.8;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.encabezado-login p {
+  margin: 0 0 3px;
+  color: var(--celeste);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.encabezado-login h1 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: clamp(1.25rem, 5.8vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.texto-login {
+  margin: 0 0 24px;
+  color: var(--texto-gris);
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* ============================================
+   MENSAJES
+   ============================================ */
+
+.mensaje-login {
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.mensaje-login p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.mensaje-error-login {
+  background: var(--naranja-suave);
+  color: var(--naranja);
+}
+
+.mensaje-ok-login {
+  background: var(--verde-suave);
+  color: var(--verde);
+}
+
+/* ============================================
+   FORMULARIO
+   ============================================ */
+
+.form-login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.campo-login label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--texto-oscuro);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.campo-login input {
+  width: 100%;
+  min-height: 58px;
+  padding: 0 16px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 9px;
+  background: var(--blanco);
+  color: var(--texto-oscuro);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  outline: none;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
+}
+
+.campo-login input:focus {
+  border-color: var(--celeste);
+  box-shadow: 0 0 0 3px rgba(37, 175, 255, 0.16);
+}
+
+.boton-login {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 9px;
+  background: var(--naranja);
+  color: var(--blanco);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.boton-login:active {
+  transform: scale(0.98);
+}
