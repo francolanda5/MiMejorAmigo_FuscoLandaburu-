@@ -21,6 +21,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background: #F7FBFD;
@@ -168,6 +172,76 @@ body {
 }
 
 /* ============================================
+   CARDS DESPLEGABLES
+   ============================================ */
+
+.card-desplegable {
+  padding: 0;
+  overflow: hidden;
+}
+
+.cabecera-card-desplegable {
+  width: 100%;
+  min-height: 64px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.cabecera-card-desplegable h2 {
+  margin: 0;
+  color: var(--texto-oscuro);
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.boton-desplegar-detalle {
+  min-height: 36px;
+  padding: 0 10px 0 13px;
+  border: none;
+  border-radius: 999px;
+  background: var(--naranja-suave);
+  color: var(--naranja);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flecha-desplegar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: var(--naranja);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-desplegable-abierta .flecha-desplegar {
+  transform: rotate(180deg);
+}
+
+.contenido-card-detalle {
+  padding: 0 16px 18px;
+  border-top: 1px solid var(--borde-suave);
+}
+
+.boton-desplegar-detalle:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
    FILAS DE DATOS
    ============================================ */
 
@@ -229,7 +303,7 @@ body {
 }
 
 .subcard-detalle:first-of-type {
-  margin-top: 0;
+  margin-top: 14px;
 }
 
 .subcard-detalle h3 {
@@ -255,7 +329,7 @@ body {
 }
 
 .texto-vacio {
-  margin: 0;
+  margin: 14px 0 0;
   padding: 14px 12px;
   border-radius: 10px;
   background: #F7FBFD;
@@ -303,6 +377,16 @@ body {
   .pagina-detalle {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .cabecera-card-desplegable {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .boton-desplegar-detalle {
+    width: 100%;
+    justify-content: center;
   }
 
   .fila-detalle {

@@ -13,6 +13,10 @@
   --borde-suave: #E6E6E6;
   --verde-suave: #E7F8EF;
   --verde: #1A9B59;
+  --rojo-suave: #FDECEC;
+  --rojo: #C84A4A;
+  --gris-suave: #F1F1F1;
+  --gris-estado: #666666;
 }
 
 * {
@@ -185,6 +189,49 @@ body {
   font-size: clamp(0.78rem, 3.5vw, 0.92rem);
   font-weight: 500;
   line-height: 1.35;
+}
+
+/* ============================================
+   DASHBOARD RESUMEN
+   ============================================ */
+
+.dashboard-admin {
+  width: 100%;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.card-contador {
+  min-height: 84px;
+  padding: 14px 12px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 14px;
+  background: var(--blanco);
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.card-contador span {
+  color: var(--texto-gris);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.card-contador strong {
+  color: var(--texto-oscuro);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.card-contador-impagas {
+  grid-column: 1 / -1;
 }
 
 /* ============================================
@@ -365,7 +412,15 @@ body {
   line-height: 1.18;
 }
 
-.badge-pago {
+.badges-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.badge-pago,
+.badge-estado {
   padding: 7px 10px;
   border-radius: 999px;
   font-size: 0.68rem;
@@ -382,6 +437,21 @@ body {
 .pago-pendiente {
   background: var(--naranja-suave);
   color: var(--naranja);
+}
+
+.estado-pendiente {
+  background: var(--naranja-suave);
+  color: var(--naranja);
+}
+
+.estado-atendida {
+  background: var(--verde-suave);
+  color: var(--verde);
+}
+
+.estado-cancelada {
+  background: var(--gris-suave);
+  color: var(--gris-estado);
 }
 
 /* ============================================
@@ -444,10 +514,15 @@ body {
   gap: 10px;
 }
 
+.form-cancelar-consulta {
+  width: 100%;
+}
+
 .boton-detalle,
 .boton-editar,
 .boton-guardar,
-.boton-cancelar {
+.boton-cancelar,
+.boton-cancelar-turno {
   width: 100%;
   min-height: 44px;
   border: none;
@@ -473,6 +548,17 @@ body {
   color: var(--blanco);
 }
 
+.boton-cancelar-turno {
+  background: var(--rojo-suave);
+  color: var(--rojo);
+}
+
+.boton-deshabilitado {
+  background: var(--gris-suave);
+  color: var(--texto-gris);
+  cursor: default;
+}
+
 .boton-guardar {
   background: var(--naranja);
   color: var(--blanco);
@@ -489,8 +575,13 @@ body {
 .boton-filtrar:active,
 .boton-limpiar:active,
 .boton-detalle:active,
-.boton-cerrar-sesion:active {
+.boton-cerrar-sesion:active,
+.boton-cancelar-turno:active {
   transform: scale(0.98);
+}
+
+.boton-deshabilitado:active {
+  transform: none;
 }
 
 /* ============================================
@@ -566,6 +657,14 @@ body {
     padding-right: 20px;
   }
 
+  .dashboard-admin {
+    grid-template-columns: 1fr;
+  }
+
+  .card-contador-impagas {
+    grid-column: auto;
+  }
+
   .fila-dato {
     grid-template-columns: 1fr;
     row-gap: 3px;
@@ -577,5 +676,11 @@ body {
 
   .cabecera-card-consulta {
     flex-direction: column;
+  }
+
+  .badges-card {
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }

@@ -736,8 +736,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         limpiarBotonesHorario();
 
-        if (!datos.exito || !Array.isArray(datos.horarios) || datos.horarios.length === 0) {
-          mostrarEstadoHorario("Sin horario");
+        if (!datos.exito) {
+          mostrarEstadoHorario(datos.mensaje || "No se pudieron cargar los horarios.");
+          return;
+        }
+
+        if (!Array.isArray(datos.horarios) || datos.horarios.length === 0) {
+          mostrarEstadoHorario(datos.mensaje || "Sin horarios disponibles.");
           return;
         }
 
@@ -911,7 +916,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (campoHorario.value === "") {
       if (mensajeErrorTurno) {
-        mensajeErrorTurno.textContent = "Seleccioná un horario para continuar.";
+        mensajeErrorTurno.textContent = "Seleccioná un horario disponible para continuar.";
       }
       return;
     }

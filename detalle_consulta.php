@@ -16,8 +16,19 @@ header("Pragma: no-cache");
 require_once "php/conexion.php";
 
 $id_consulta = $_GET["id_consulta"] ?? "";
+$volver_panel = $_GET["volver"] ?? "admin_consultas.php";
+
+if (
+    empty($volver_panel) ||
+    strpos($volver_panel, "admin_consultas.php") !== 0 ||
+    strpos($volver_panel, "://") !== false ||
+    strpos($volver_panel, "//") === 0
+) {
+    $volver_panel = "admin_consultas.php";
+}
 
 $consulta_detalle = null;
+$historial_consultas = [];
 $antecedentes = [];
 $prescripciones = [];
 $mensaje_error = "";
@@ -36,10 +47,12 @@ if (empty($id_consulta) || !is_numeric($id_consulta)) {
                 `consulta`.`id_paciente`,
                 `consulta`.`fecha`,
                 TIME_FORMAT(`consulta`.`horario`, '%H:%i') AS horario,
+                `consulta`.`horario` AS horario_original,
                 `consulta`.`motivo_consulta`,
                 `consulta`.`diagnostico`,
                 `consulta`.`tratamiento`,
                 `consulta`.`pago`,
+                `consulta`.`estado`,
                 `consulta`.`matricula_profesional`,
 
                 `mascota`.`nombre` AS nombre_mascota,
@@ -83,7 +96,57 @@ if (empty($id_consulta) || !is_numeric($id_consulta)) {
             $mensaje_error = "No se encontró la consulta solicitada.";
         } else {
             /* ============================================
-               2. OBTENER ANTECEDENTES MÉDICOS
+               2. OBTENER HISTORIAL DEL PACIENTE
+               ============================================ */
+
+            try {
+                $consulta_historial = $conexion->prepare("
+                    SELECT
+                        `consulta`.`id_consulta`,
+                        `consulta`.`fecha`,
+                        TIME_FORMAT(`consulta`.`horario`, '%H:%i') AS horario,
+                        `consulta`.`motivo_consulta`,
+                        `consulta`.`diagnostico`,
+                        `consulta`.`tratamiento`,
+                        `consulta`.`pago`,
+                        `consulta`.`estado`,
+
+                        `veterinario`.`nombre` AS nombre_profesional,
+                        `veterinario`.`especialidad`
+
+                    FROM `consulta`
+
+                    LEFT JOIN `veterinario`
+                        ON `consulta`.`matricula_profesional` = `veterinario`.`matricula_profesional`
+
+                    WHERE `consulta`.`id_paciente` = :id_paciente
+                      AND `consulta`.`id_consulta` <> :id_consulta
+                      AND (
+                            `consulta`.`fecha` < :fecha_actual
+                            OR (
+                                `consulta`.`fecha` = :fecha_actual
+                                AND `consulta`.`horario` < :horario_actual
+                            )
+                      )
+
+                    ORDER BY `consulta`.`fecha` DESC, `consulta`.`horario` DESC
+                ");
+
+                $consulta_historial->bindValue(":id_paciente", $consulta_detalle["id_paciente"], PDO::PARAM_INT);
+                $consulta_historial->bindValue(":id_consulta", $consulta_detalle["id_consulta"], PDO::PARAM_INT);
+                $consulta_historial->bindValue(":fecha_actual", $consulta_detalle["fecha"]);
+                $consulta_historial->bindValue(":horario_actual", $consulta_detalle["horario_original"]);
+
+                $consulta_historial->execute();
+
+                $historial_consultas = $consulta_historial->fetchAll(PDO::FETCH_ASSOC);
+
+            } catch (PDOException $error_historial) {
+                $historial_consultas = [];
+            }
+
+            /* ============================================
+               3. OBTENER ANTECEDENTES MÉDICOS
                ============================================ */
 
             try {
@@ -104,7 +167,7 @@ if (empty($id_consulta) || !is_numeric($id_consulta)) {
             }
 
             /* ============================================
-               3. OBTENER PRESCRIPCIONES
+               4. OBTENER PRESCRIPCIONES
                ============================================ */
 
             try {
@@ -207,6 +270,16 @@ function obtenerPrimerValor($datos, $claves) {
     return "";
 }
 
+function obtenerEstadoConsulta($estado) {
+    $estado = trim((string)($estado ?? ""));
+
+    if ($estado === "") {
+        return "Pendiente";
+    }
+
+    return $estado;
+}
+
 function renderizarCamposDinamicos($datos, $campos_omitidos = []) {
     foreach ($datos as $campo => $valor) {
         if (in_array($campo, $campos_omitidos)) {
@@ -245,7 +318,7 @@ function renderizarCamposDinamicos($datos, $campos_omitidos = []) {
 
         <!-- ENCABEZADO -->
         <header class="encabezado-detalle">
-            <a href="admin_consultas.php" class="boton-volver" aria-label="Volver al panel">‹</a>
+            <a href="<?php echo limpiarTexto($volver_panel); ?>" class="boton-volver" aria-label="Volver al panel">‹</a>
 
             <div class="titulos-detalle">
                 <p>Panel profesional</p>
@@ -260,7 +333,7 @@ function renderizarCamposDinamicos($datos, $campos_omitidos = []) {
                 <h2>No se pudo mostrar el detalle</h2>
                 <p><?php echo limpiarTexto($mensaje_error); ?></p>
 
-                <a href="admin_consultas.php" class="boton-principal">
+                <a href="<?php echo limpiarTexto($volver_panel); ?>" class="boton-principal">
                     Volver al panel
                 </a>
             </section>
@@ -269,6 +342,7 @@ function renderizarCamposDinamicos($datos, $campos_omitidos = []) {
 
             <?php
             $pago = (int)$consulta_detalle["pago"];
+            $estado_consulta = obtenerEstadoConsulta($consulta_detalle["estado"]);
             ?>
 
             <!-- RESUMEN SUPERIOR -->
@@ -284,239 +358,371 @@ function renderizarCamposDinamicos($datos, $campos_omitidos = []) {
                 <?php if ($pago === 1) : ?>
                     <span class="badge-pago pago-realizado">Pago</span>
                 <?php else : ?>
-                    <span class="badge-pago pago-pendiente">Pendiente</span>
+                    <span class="badge-pago pago-pendiente">Pendiente de pago</span>
                 <?php endif; ?>
             </section>
 
             <!-- DATOS DE LA CONSULTA -->
-            <section class="card-detalle">
-                <h2>Datos de la consulta</h2>
+            <section class="card-detalle card-desplegable">
+                <header class="cabecera-card-desplegable">
+                    <h2>Datos de la consulta</h2>
 
-                <div class="fila-detalle">
-                    <span>ID de consulta</span>
-                    <strong><?php echo limpiarTexto($consulta_detalle["id_consulta"]); ?></strong>
-                </div>
+                    <button type="button" class="boton-desplegar-detalle"
+                        aria-expanded="false" aria-controls="contenido-datos-consulta">
+                        <span class="texto-desplegar">Ver más</span>
+                        <span class="flecha-desplegar" aria-hidden="true">⌄</span>
+                    </button>
+                </header>
 
-                <div class="fila-detalle">
-                    <span>Fecha</span>
-                    <strong><?php echo limpiarTexto(formatearFechaDetalle($consulta_detalle["fecha"])); ?></strong>
-                </div>
+                <div id="contenido-datos-consulta" class="contenido-card-detalle" hidden>
+                    <div class="fila-detalle">
+                        <span>ID de consulta</span>
+                        <strong><?php echo limpiarTexto($consulta_detalle["id_consulta"]); ?></strong>
+                    </div>
 
-                <div class="fila-detalle">
-                    <span>Horario</span>
-                    <strong><?php echo limpiarTexto($consulta_detalle["horario"]); ?></strong>
-                </div>
+                    <div class="fila-detalle">
+                        <span>Fecha</span>
+                        <strong><?php echo limpiarTexto(formatearFechaDetalle($consulta_detalle["fecha"])); ?></strong>
+                    </div>
 
-                <div class="bloque-texto-detalle">
-                    <span>Motivo de consulta</span>
-                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($consulta_detalle["motivo_consulta"]))); ?></p>
-                </div>
+                    <div class="fila-detalle">
+                        <span>Horario</span>
+                        <strong><?php echo limpiarTexto($consulta_detalle["horario"]); ?></strong>
+                    </div>
 
-                <div class="bloque-texto-detalle">
-                    <span>Diagnóstico</span>
-                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($consulta_detalle["diagnostico"]))); ?></p>
-                </div>
+                    <div class="fila-detalle">
+                        <span>Estado</span>
+                        <strong><?php echo limpiarTexto($estado_consulta); ?></strong>
+                    </div>
 
-                <div class="bloque-texto-detalle">
-                    <span>Tratamiento</span>
-                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($consulta_detalle["tratamiento"]))); ?></p>
-                </div>
+                    <div class="bloque-texto-detalle">
+                        <span>Motivo de consulta</span>
+                        <p><?php echo nl2br(limpiarTexto(mostrarTexto($consulta_detalle["motivo_consulta"]))); ?></p>
+                    </div>
 
-                <div class="fila-detalle">
-                    <span>Estado de pago</span>
-                    <strong><?php echo $pago === 1 ? "Pago" : "Pendiente"; ?></strong>
-                </div>
+                    <div class="bloque-texto-detalle">
+                        <span>Diagnóstico</span>
+                        <p><?php echo nl2br(limpiarTexto(mostrarTexto($consulta_detalle["diagnostico"]))); ?></p>
+                    </div>
 
-                <div class="fila-detalle">
-                    <span>Profesional</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["nombre_profesional"])); ?></strong>
-                </div>
+                    <div class="bloque-texto-detalle">
+                        <span>Tratamiento</span>
+                        <p><?php echo nl2br(limpiarTexto(mostrarTexto($consulta_detalle["tratamiento"]))); ?></p>
+                    </div>
 
-                <div class="fila-detalle">
-                    <span>Especialidad</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["especialidad"])); ?></strong>
+                    <div class="fila-detalle">
+                        <span>Estado de pago</span>
+                        <strong><?php echo $pago === 1 ? "Pago" : "Pendiente"; ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Profesional</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["nombre_profesional"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Especialidad</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["especialidad"])); ?></strong>
+                    </div>
                 </div>
             </section>
 
             <!-- DATOS DE LA MASCOTA -->
-            <section class="card-detalle">
-                <h2>Datos de la mascota</h2>
+            <section class="card-detalle card-desplegable">
+                <header class="cabecera-card-desplegable">
+                    <h2>Datos de la mascota</h2>
 
-                <div class="fila-detalle">
-                    <span>ID paciente</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["id_paciente"])); ?></strong>
-                </div>
+                    <button type="button" class="boton-desplegar-detalle"
+                        aria-expanded="false" aria-controls="contenido-datos-mascota">
+                        <span class="texto-desplegar">Ver más</span>
+                        <span class="flecha-desplegar" aria-hidden="true">⌄</span>
+                    </button>
+                </header>
 
-                <div class="fila-detalle">
-                    <span>Nombre</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["nombre_mascota"])); ?></strong>
-                </div>
+                <div id="contenido-datos-mascota" class="contenido-card-detalle" hidden>
+                    <div class="fila-detalle">
+                        <span>ID paciente</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["id_paciente"])); ?></strong>
+                    </div>
 
-                <div class="fila-detalle">
-                    <span>Especie</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["especie"])); ?></strong>
-                </div>
+                    <div class="fila-detalle">
+                        <span>Nombre</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["nombre_mascota"])); ?></strong>
+                    </div>
 
-                <div class="fila-detalle">
-                    <span>Raza</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["raza"])); ?></strong>
-                </div>
+                    <div class="fila-detalle">
+                        <span>Especie</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["especie"])); ?></strong>
+                    </div>
 
-                <div class="fila-detalle">
-                    <span>Edad</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["edad"])); ?></strong>
+                    <div class="fila-detalle">
+                        <span>Raza</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["raza"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Edad</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["edad"])); ?></strong>
+                    </div>
                 </div>
             </section>
 
             <!-- DATOS DEL DUEÑO -->
-            <section class="card-detalle">
-                <h2>Datos del dueño</h2>
+            <section class="card-detalle card-desplegable">
+                <header class="cabecera-card-desplegable">
+                    <h2>Datos del dueño</h2>
 
-                <div class="fila-detalle">
-                    <span>DNI</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["dni_dueño"])); ?></strong>
+                    <button type="button" class="boton-desplegar-detalle"
+                        aria-expanded="false" aria-controls="contenido-datos-dueno">
+                        <span class="texto-desplegar">Ver más</span>
+                        <span class="flecha-desplegar" aria-hidden="true">⌄</span>
+                    </button>
+                </header>
+
+                <div id="contenido-datos-dueno" class="contenido-card-detalle" hidden>
+                    <div class="fila-detalle">
+                        <span>DNI</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["dni_dueño"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Nombre</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["nombre_dueno"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Mail</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["mail"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Teléfono</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["teléfono"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Calle</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["calle"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Altura</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["altura"])); ?></strong>
+                    </div>
+
+                    <div class="fila-detalle">
+                        <span>Barrio</span>
+                        <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["barrio"])); ?></strong>
+                    </div>
                 </div>
+            </section>
 
-                <div class="fila-detalle">
-                    <span>Nombre</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["nombre_dueno"])); ?></strong>
-                </div>
+            <!-- HISTORIAL DEL PACIENTE -->
+            <section class="card-detalle card-desplegable">
+                <header class="cabecera-card-desplegable">
+                    <h2>Historial del paciente</h2>
 
-                <div class="fila-detalle">
-                    <span>Mail</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["mail"])); ?></strong>
-                </div>
+                    <button type="button" class="boton-desplegar-detalle"
+                        aria-expanded="false" aria-controls="contenido-historial-paciente">
+                        <span class="texto-desplegar">Ver más</span>
+                        <span class="flecha-desplegar" aria-hidden="true">⌄</span>
+                    </button>
+                </header>
 
-                <div class="fila-detalle">
-                    <span>Teléfono</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["teléfono"])); ?></strong>
-                </div>
+                <div id="contenido-historial-paciente" class="contenido-card-detalle" hidden>
+                    <?php if (empty($historial_consultas)) : ?>
 
-                <div class="fila-detalle">
-                    <span>Calle</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["calle"])); ?></strong>
-                </div>
+                        <p class="texto-vacio">No hay consultas anteriores registradas para esta mascota.</p>
 
-                <div class="fila-detalle">
-                    <span>Altura</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["altura"])); ?></strong>
-                </div>
+                    <?php else : ?>
 
-                <div class="fila-detalle">
-                    <span>Barrio</span>
-                    <strong><?php echo limpiarTexto(mostrarTexto($consulta_detalle["barrio"])); ?></strong>
+                        <?php foreach ($historial_consultas as $historial_item) : ?>
+
+                            <?php
+                            $pago_historial = (int)$historial_item["pago"];
+                            $estado_historial = obtenerEstadoConsulta($historial_item["estado"]);
+                            ?>
+
+                            <article class="subcard-detalle">
+                                <h3>
+                                    Consulta #<?php echo limpiarTexto($historial_item["id_consulta"]); ?>
+                                    ·
+                                    <?php echo limpiarTexto(formatearFechaDetalle($historial_item["fecha"])); ?>
+                                    ·
+                                    <?php echo limpiarTexto($historial_item["horario"]); ?>
+                                </h3>
+
+                                <div class="fila-detalle">
+                                    <span>Estado</span>
+                                    <strong><?php echo limpiarTexto($estado_historial); ?></strong>
+                                </div>
+
+                                <div class="fila-detalle">
+                                    <span>Profesional</span>
+                                    <strong><?php echo limpiarTexto(mostrarTexto($historial_item["nombre_profesional"])); ?></strong>
+                                </div>
+
+                                <div class="fila-detalle">
+                                    <span>Especialidad</span>
+                                    <strong><?php echo limpiarTexto(mostrarTexto($historial_item["especialidad"])); ?></strong>
+                                </div>
+
+                                <div class="fila-detalle">
+                                    <span>Estado de pago</span>
+                                    <strong><?php echo $pago_historial === 1 ? "Pago" : "Pendiente"; ?></strong>
+                                </div>
+
+                                <div class="bloque-texto-detalle">
+                                    <span>Motivo de consulta</span>
+                                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($historial_item["motivo_consulta"]))); ?></p>
+                                </div>
+
+                                <div class="bloque-texto-detalle">
+                                    <span>Diagnóstico</span>
+                                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($historial_item["diagnostico"]))); ?></p>
+                                </div>
+
+                                <div class="bloque-texto-detalle">
+                                    <span>Tratamiento</span>
+                                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($historial_item["tratamiento"]))); ?></p>
+                                </div>
+                            </article>
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
                 </div>
             </section>
 
             <!-- ANTECEDENTES -->
-            <section class="card-detalle">
-                <h2>Antecedentes médicos</h2>
+            <section class="card-detalle card-desplegable">
+                <header class="cabecera-card-desplegable">
+                    <h2>Antecedentes médicos</h2>
 
-                <?php if (empty($antecedentes)) : ?>
+                    <button type="button" class="boton-desplegar-detalle"
+                        aria-expanded="false" aria-controls="contenido-antecedentes">
+                        <span class="texto-desplegar">Ver más</span>
+                        <span class="flecha-desplegar" aria-hidden="true">⌄</span>
+                    </button>
+                </header>
 
-                    <p class="texto-vacio">No hay antecedentes médicos cargados.</p>
+                <div id="contenido-antecedentes" class="contenido-card-detalle" hidden>
+                    <?php if (empty($antecedentes)) : ?>
 
-                <?php else : ?>
+                        <p class="texto-vacio">No hay antecedentes médicos cargados.</p>
 
-                    <?php foreach ($antecedentes as $indice => $antecedente) : ?>
+                    <?php else : ?>
 
-                        <article class="subcard-detalle">
-                            <h3>Antecedente <?php echo $indice + 1; ?></h3>
+                        <?php foreach ($antecedentes as $indice => $antecedente) : ?>
 
-                            <?php renderizarCamposDinamicos($antecedente); ?>
-                        </article>
+                            <article class="subcard-detalle">
+                                <h3>Antecedente <?php echo $indice + 1; ?></h3>
 
-                    <?php endforeach; ?>
+                                <?php renderizarCamposDinamicos($antecedente); ?>
+                            </article>
 
-                <?php endif; ?>
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
+                </div>
             </section>
 
             <!-- PRESCRIPCIÓN -->
-            <section class="card-detalle">
-                <h2>Prescripción y medicamentos</h2>
+            <section class="card-detalle card-desplegable">
+                <header class="cabecera-card-desplegable">
+                    <h2>Prescripción y medicamentos</h2>
 
-                <?php if (empty($prescripciones)) : ?>
+                    <button type="button" class="boton-desplegar-detalle"
+                        aria-expanded="false" aria-controls="contenido-prescripcion">
+                        <span class="texto-desplegar">Ver más</span>
+                        <span class="flecha-desplegar" aria-hidden="true">⌄</span>
+                    </button>
+                </header>
 
-                    <p class="texto-vacio">No hay prescripción cargada para esta consulta.</p>
+                <div id="contenido-prescripcion" class="contenido-card-detalle" hidden>
+                    <?php if (empty($prescripciones)) : ?>
 
-                <?php else : ?>
+                        <p class="texto-vacio">No hay prescripción cargada para esta consulta.</p>
 
-                    <?php foreach ($prescripciones as $indice => $item_prescripcion) : ?>
+                    <?php else : ?>
 
-                        <?php
-                        $prescripcion = $item_prescripcion["prescripcion"];
-                        $medicamento = $item_prescripcion["medicamento"];
+                        <?php foreach ($prescripciones as $indice => $item_prescripcion) : ?>
 
-                        $nombre_medicamento = obtenerPrimerValor($medicamento, [
-                            "nombre",
-                            "medicamento",
-                            "nombre_medicamento",
-                            "descripcion",
-                            "descripción"
-                        ]);
+                            <?php
+                            $prescripcion = $item_prescripcion["prescripcion"];
+                            $medicamento = $item_prescripcion["medicamento"];
 
-                        $tipo_medicamento = obtenerPrimerValor($medicamento, [
-                            "tipo",
-                            "tipo_medicamento",
-                            "clasificacion",
-                            "clasificación"
-                        ]);
+                            $nombre_medicamento = obtenerPrimerValor($medicamento, [
+                                "nombre",
+                                "medicamento",
+                                "nombre_medicamento",
+                                "descripcion",
+                                "descripción"
+                            ]);
 
-                        $duracion = $prescripcion["duracion"] ?? ($prescripcion["duración"] ?? "");
-                        ?>
+                            $tipo_medicamento = obtenerPrimerValor($medicamento, [
+                                "tipo",
+                                "tipo_medicamento",
+                                "clasificacion",
+                                "clasificación"
+                            ]);
 
-                        <article class="subcard-detalle">
-                            <h3>Prescripción <?php echo $indice + 1; ?></h3>
+                            $duracion = $prescripcion["duracion"] ?? ($prescripcion["duración"] ?? "");
+                            ?>
 
-                            <div class="fila-detalle">
-                                <span>Medicamento</span>
-                                <strong><?php echo limpiarTexto(mostrarTexto($nombre_medicamento)); ?></strong>
-                            </div>
+                            <article class="subcard-detalle">
+                                <h3>Prescripción <?php echo $indice + 1; ?></h3>
 
-                            <div class="fila-detalle">
-                                <span>Tipo</span>
-                                <strong><?php echo limpiarTexto(mostrarTexto($tipo_medicamento)); ?></strong>
-                            </div>
-
-                            <div class="fila-detalle">
-                                <span>Dosis</span>
-                                <strong><?php echo limpiarTexto(mostrarTexto($prescripcion["dosis"] ?? "")); ?></strong>
-                            </div>
-
-                            <div class="fila-detalle">
-                                <span>Frecuencia</span>
-                                <strong><?php echo limpiarTexto(mostrarTexto($prescripcion["frecuencia"] ?? "")); ?></strong>
-                            </div>
-
-                            <div class="fila-detalle">
-                                <span>Duración</span>
-                                <strong><?php echo limpiarTexto(mostrarTexto($duracion)); ?></strong>
-                            </div>
-
-                            <div class="bloque-texto-detalle">
-                                <span>Reacción adversa</span>
-                                <p><?php echo nl2br(limpiarTexto(mostrarTexto($prescripcion["reacción_adversa"] ?? ""))); ?></p>
-                            </div>
-
-                            <div class="bloque-texto-detalle">
-                                <span>Caso de resistencia</span>
-                                <p><?php echo nl2br(limpiarTexto(mostrarTexto($prescripcion["caso_resistencia"] ?? ""))); ?></p>
-                            </div>
-
-                            <?php if (!empty($medicamento)) : ?>
-                                <div class="bloque-dinamico">
-                                    <h4>Datos completos del medicamento</h4>
-                                    <?php renderizarCamposDinamicos($medicamento); ?>
+                                <div class="fila-detalle">
+                                    <span>Medicamento</span>
+                                    <strong><?php echo limpiarTexto(mostrarTexto($nombre_medicamento)); ?></strong>
                                 </div>
-                            <?php endif; ?>
-                        </article>
 
-                    <?php endforeach; ?>
+                                <div class="fila-detalle">
+                                    <span>Tipo</span>
+                                    <strong><?php echo limpiarTexto(mostrarTexto($tipo_medicamento)); ?></strong>
+                                </div>
 
-                <?php endif; ?>
+                                <div class="fila-detalle">
+                                    <span>Dosis</span>
+                                    <strong><?php echo limpiarTexto(mostrarTexto($prescripcion["dosis"] ?? "")); ?></strong>
+                                </div>
+
+                                <div class="fila-detalle">
+                                    <span>Frecuencia</span>
+                                    <strong><?php echo limpiarTexto(mostrarTexto($prescripcion["frecuencia"] ?? "")); ?></strong>
+                                </div>
+
+                                <div class="fila-detalle">
+                                    <span>Duración</span>
+                                    <strong><?php echo limpiarTexto(mostrarTexto($duracion)); ?></strong>
+                                </div>
+
+                                <div class="bloque-texto-detalle">
+                                    <span>Reacción adversa</span>
+                                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($prescripcion["reacción_adversa"] ?? ""))); ?></p>
+                                </div>
+
+                                <div class="bloque-texto-detalle">
+                                    <span>Caso de resistencia</span>
+                                    <p><?php echo nl2br(limpiarTexto(mostrarTexto($prescripcion["caso_resistencia"] ?? ""))); ?></p>
+                                </div>
+
+                                <?php if (!empty($medicamento)) : ?>
+                                    <div class="bloque-dinamico">
+                                        <h4>Datos completos del medicamento</h4>
+                                        <?php renderizarCamposDinamicos($medicamento); ?>
+                                    </div>
+                                <?php endif; ?>
+                            </article>
+
+                        <?php endforeach; ?>
+
+                    <?php endif; ?>
+                </div>
             </section>
 
-            <a href="admin_consultas.php" class="boton-principal boton-final">
+            <a href="<?php echo limpiarTexto($volver_panel); ?>" class="boton-principal boton-final">
                 Volver al panel
             </a>
 
@@ -524,6 +730,7 @@ function renderizarCamposDinamicos($datos, $campos_omitidos = []) {
 
     </main>
 
+    <script src="js/detalle_consulta.js"></script>
 </body>
 
 </html>

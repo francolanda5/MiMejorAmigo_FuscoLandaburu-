@@ -24,8 +24,22 @@ $filtro_tipo = $_GET["tipo"] ?? "";
 $filtro_pago = $_GET["pago"] ?? "";
 $filtro_fecha = $_GET["fecha"] ?? "";
 
+$url_actual_admin = "admin_consultas.php";
+
+if (!empty($_SERVER["QUERY_STRING"])) {
+    $url_actual_admin .= "?" . $_SERVER["QUERY_STRING"];
+}
+
 $consultas = [];
 $profesionales = [];
+
+$resumen_consultas = [
+    "total" => 0,
+    "pendientes" => 0,
+    "atendidas" => 0,
+    "canceladas" => 0,
+    "impagas" => 0
+];
 
 $tipos_consulta = [
     "consulta_general" => "Consulta general",
@@ -35,6 +49,37 @@ $tipos_consulta = [
 ];
 
 try {
+    /* ============================================
+       OBTENER CONTADORES DEL DASHBOARD
+       ============================================ */
+
+    $consulta_resumen = $conexion->prepare("
+        SELECT
+            COUNT(*) AS total,
+
+            SUM(CASE WHEN `estado` = 'Pendiente' THEN 1 ELSE 0 END) AS pendientes,
+
+            SUM(CASE WHEN `estado` = 'Atendida' THEN 1 ELSE 0 END) AS atendidas,
+
+            SUM(CASE WHEN `estado` = 'Cancelada' THEN 1 ELSE 0 END) AS canceladas,
+
+            SUM(CASE WHEN `pago` = 0 THEN 1 ELSE 0 END) AS impagas
+
+        FROM `consulta`
+    ");
+
+    $consulta_resumen->execute();
+
+    $resumen_resultado = $consulta_resumen->fetch(PDO::FETCH_ASSOC);
+
+    if ($resumen_resultado) {
+        $resumen_consultas["total"] = (int) $resumen_resultado["total"];
+        $resumen_consultas["pendientes"] = (int) $resumen_resultado["pendientes"];
+        $resumen_consultas["atendidas"] = (int) $resumen_resultado["atendidas"];
+        $resumen_consultas["canceladas"] = (int) $resumen_resultado["canceladas"];
+        $resumen_consultas["impagas"] = (int) $resumen_resultado["impagas"];
+    }
+
     /* ============================================
        OBTENER PROFESIONALES PARA EL FILTRO
        ============================================ */
@@ -97,6 +142,7 @@ try {
             `consulta`.`diagnostico`,
             `consulta`.`tratamiento`,
             `consulta`.`pago`,
+            `consulta`.`estado`,
 
             `mascota`.`nombre` AS nombre_mascota,
             `mascota`.`especie`,
@@ -157,6 +203,30 @@ function formatearFechaAdmin($fecha) {
 
     return date_format($fecha_creada, "d/m/Y");
 }
+
+function obtenerEstadoConsulta($estado) {
+    $estado = trim((string)($estado ?? ""));
+
+    if ($estado === "") {
+        return "Pendiente";
+    }
+
+    return $estado;
+}
+
+function obtenerClaseEstado($estado) {
+    $estado = obtenerEstadoConsulta($estado);
+
+    if ($estado === "Atendida") {
+        return "estado-atendida";
+    }
+
+    if ($estado === "Cancelada") {
+        return "estado-cancelada";
+    }
+
+    return "estado-pendiente";
+}
 ?>
 
 <!DOCTYPE html>
@@ -210,9 +280,15 @@ function formatearFechaAdmin($fecha) {
             </section>
         <?php endif; ?>
 
+        <?php if ($mensaje_estado === "cancelada") : ?>
+            <section class="mensaje-admin mensaje-ok" aria-live="polite">
+                <p>El turno fue cancelado correctamente. La consulta no fue eliminada.</p>
+            </section>
+        <?php endif; ?>
+
         <?php if ($mensaje_estado === "error") : ?>
             <section class="mensaje-admin mensaje-error-admin" aria-live="polite">
-                <p>No se pudo actualizar la consulta. Revisá los datos e intentá nuevamente.</p>
+                <p>No se pudo realizar la acción. Revisá los datos e intentá nuevamente.</p>
             </section>
         <?php endif; ?>
 
@@ -220,8 +296,36 @@ function formatearFechaAdmin($fecha) {
         <section class="intro-admin">
             <h2>Turnos registrados</h2>
             <p>
-                Desde acá podés revisar las consultas cargadas y actualizar diagnóstico, tratamiento y estado de pago.
+                Desde acá podés revisar las consultas cargadas y actualizar diagnóstico, tratamiento, pago y estado.
             </p>
+        </section>
+
+        <!-- RESUMEN DASHBOARD -->
+        <section class="dashboard-admin" aria-label="Resumen de consultas">
+            <article class="card-contador">
+                <span>Total</span>
+                <strong><?php echo limpiarTexto($resumen_consultas["total"]); ?></strong>
+            </article>
+
+            <article class="card-contador">
+                <span>Pendientes</span>
+                <strong><?php echo limpiarTexto($resumen_consultas["pendientes"]); ?></strong>
+            </article>
+
+            <article class="card-contador">
+                <span>Atendidas</span>
+                <strong><?php echo limpiarTexto($resumen_consultas["atendidas"]); ?></strong>
+            </article>
+
+            <article class="card-contador">
+                <span>Canceladas</span>
+                <strong><?php echo limpiarTexto($resumen_consultas["canceladas"]); ?></strong>
+            </article>
+
+            <article class="card-contador card-contador-impagas">
+                <span>Impagas</span>
+                <strong><?php echo limpiarTexto($resumen_consultas["impagas"]); ?></strong>
+            </article>
         </section>
 
         <!-- FILTROS -->
@@ -331,6 +435,8 @@ function formatearFechaAdmin($fecha) {
                 <?php
                 $id_consulta = $consulta_item["id_consulta"];
                 $pago = (int) $consulta_item["pago"];
+                $estado_consulta = obtenerEstadoConsulta($consulta_item["estado"]);
+                $url_detalle = "detalle_consulta.php?id_consulta=" . urlencode($id_consulta) . "&volver=" . urlencode($url_actual_admin);
                 ?>
 
                 <article class="card-consulta">
@@ -345,11 +451,17 @@ function formatearFechaAdmin($fecha) {
                             </h2>
                         </div>
 
-                        <?php if ($pago === 1) : ?>
-                            <span class="badge-pago pago-realizado">Pago</span>
-                        <?php else : ?>
-                            <span class="badge-pago pago-pendiente">Pendiente</span>
-                        <?php endif; ?>
+                        <div class="badges-card">
+                            <span class="badge-estado <?php echo limpiarTexto(obtenerClaseEstado($estado_consulta)); ?>">
+                                <?php echo limpiarTexto($estado_consulta); ?>
+                            </span>
+
+                            <?php if ($pago === 1) : ?>
+                                <span class="badge-pago pago-realizado">Pago</span>
+                            <?php else : ?>
+                                <span class="badge-pago pago-pendiente">Impago</span>
+                            <?php endif; ?>
+                        </div>
                     </header>
 
                     <section class="datos-consulta" aria-label="Datos de la consulta">
@@ -385,14 +497,27 @@ function formatearFechaAdmin($fecha) {
                     </section>
 
                     <div class="acciones-card-consulta">
-                        <a href="detalle_consulta.php?id_consulta=<?php echo limpiarTexto($id_consulta); ?>"
-                            class="boton-detalle">
+                        <a href="<?php echo limpiarTexto($url_detalle); ?>" class="boton-detalle">
                             Ver detalle
                         </a>
 
                         <button type="button" class="boton-editar" data-id="<?php echo limpiarTexto($id_consulta); ?>">
                             Editar
                         </button>
+
+                        <?php if ($estado_consulta !== "Cancelada") : ?>
+                            <form class="form-cancelar-consulta" action="php/cancelar_consulta.php" method="POST">
+                                <input type="hidden" name="id_consulta" value="<?php echo limpiarTexto($id_consulta); ?>">
+
+                                <button type="submit" class="boton-cancelar-turno">
+                                    Cancelar turno
+                                </button>
+                            </form>
+                        <?php else : ?>
+                            <button type="button" class="boton-cancelar-turno boton-deshabilitado" disabled>
+                                Turno cancelado
+                            </button>
+                        <?php endif; ?>
                     </div>
 
                     <!-- FORMULARIO DE EDICIÓN -->
@@ -422,6 +547,22 @@ function formatearFechaAdmin($fecha) {
                                 </option>
                                 <option value="1" <?php echo $pago === 1 ? "selected" : ""; ?>>
                                     Pago
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="campo-edicion">
+                            <label for="estado-consulta-<?php echo limpiarTexto($id_consulta); ?>">Estado de consulta</label>
+
+                            <select id="estado-consulta-<?php echo limpiarTexto($id_consulta); ?>" name="estado_consulta">
+                                <option value="Pendiente" <?php echo $estado_consulta === "Pendiente" ? "selected" : ""; ?>>
+                                    Pendiente
+                                </option>
+                                <option value="Atendida" <?php echo $estado_consulta === "Atendida" ? "selected" : ""; ?>>
+                                    Atendida
+                                </option>
+                                <option value="Cancelada" <?php echo $estado_consulta === "Cancelada" ? "selected" : ""; ?>>
+                                    Cancelada
                                 </option>
                             </select>
                         </div>
