@@ -6,6 +6,7 @@
 header("Content-Type: application/json; charset=utf-8");
 
 require_once "conexion.php";
+require_once "validaciones.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
@@ -19,15 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
    1. RECIBIR DATOS DEL FORMULARIO
    ============================================ */
 
-$nombre_dueno = trim($_POST["nombre_dueno"] ?? "");
-$dni_dueno = trim($_POST["dni_dueno"] ?? "");
-$correo = trim($_POST["correo"] ?? "");
-$telefono = trim($_POST["telefono"] ?? "");
+$nombre_dueno = textoRecibido($_POST["nombre_dueno"] ?? "");
+$dni_dueno = textoRecibido($_POST["dni_dueno"] ?? "");
+$correo = strtolower(textoRecibido($_POST["correo"] ?? ""));
+$telefono = textoRecibido($_POST["telefono"] ?? "");
 
-$nombre_mascota = trim($_POST["nombre_mascota"] ?? "");
-$especie = trim($_POST["especie"] ?? "");
-$raza = trim($_POST["raza"] ?? "");
-$edad = trim($_POST["edad"] ?? "");
+$nombre_mascota = textoRecibido($_POST["nombre_mascota"] ?? "");
+$especie = textoRecibido($_POST["especie"] ?? "");
+$raza = textoRecibido($_POST["raza"] ?? "");
+$edad = textoRecibido($_POST["edad"] ?? "");
 
 /* ============================================
    2. VALIDAR DATOS OBLIGATORIOS
@@ -50,7 +51,7 @@ if (
     exit;
 }
 
-if (!is_numeric($dni_dueno)) {
+if (!esDniValido($dni_dueno)) {
     echo json_encode([
         "exito" => false,
         "mensaje" => "El DNI debe contener solo números."
@@ -58,7 +59,31 @@ if (!is_numeric($dni_dueno)) {
     exit;
 }
 
-if (!is_numeric($edad) || (int)$edad < 0) {
+if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode([
+        "exito" => false,
+        "mensaje" => "El correo electrónico no es válido."
+    ]);
+    exit;
+}
+
+if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]{3,80}$/', $nombre_dueno)) {
+    echo json_encode([
+        "exito" => false,
+        "mensaje" => "El nombre del dueño solo puede contener letras y espacios."
+    ]);
+    exit;
+}
+
+if (!esTelefonoValido($telefono)) {
+    echo json_encode([
+        "exito" => false,
+        "mensaje" => "El teléfono no es válido."
+    ]);
+    exit;
+}
+
+if (filter_var($edad, FILTER_VALIDATE_INT, ["options" => ["min_range" => 0, "max_range" => 100]]) === false) {
     echo json_encode([
         "exito" => false,
         "mensaje" => "La edad de la mascota no es válida."

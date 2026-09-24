@@ -1,12 +1,31 @@
 <?php
 /* ============================================
    conexion.php - CONEXIÓN A BASE DE DATOS
+   Local XAMPP + Hosting InfinityFree
    ============================================ */
 
-$host = "localhost";
-$base_datos = "mimejoramigo";
-$usuario = "root";
-$contrasena = "";
+if ($_SERVER["HTTP_HOST"] === "localhost" || $_SERVER["HTTP_HOST"] === "127.0.0.1") {
+
+    /* ============================================
+       DATOS PARA XAMPP LOCAL
+       ============================================ */
+
+    $host = "localhost";
+    $base_datos = "mi-mejor-amigo";
+    $usuario = "root";
+    $contrasena = "";
+
+} else {
+
+    /* ============================================
+       DATOS PARA INFINITYFREE
+       ============================================ */
+
+    $host = "sql301.infinityfree.com";
+    $base_datos = "if0_42366136_mimejoramigo";
+    $usuario = "if0_42366136";
+    $contrasena = "VetWeb2026";
+}
 
 try {
     $conexion = new PDO(

@@ -253,7 +253,7 @@ function obtenerClaseEstado($estado) {
 
         <!-- ENCABEZADO -->
         <header class="encabezado-admin">
-            <a href="inicio.html" class="boton-volver" aria-label="Volver al inicio">‹</a>
+            <a href="inicio.php" class="boton-volver" aria-label="Volver al inicio">‹</a>
 
             <div class="titulos-admin">
                 <p>Panel administrador</p>

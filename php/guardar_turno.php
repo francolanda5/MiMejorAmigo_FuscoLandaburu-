@@ -6,6 +6,7 @@
 header("Content-Type: application/json; charset=utf-8");
 
 require_once "conexion.php";
+require_once "validaciones.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
@@ -19,27 +20,37 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
    1. RECIBIR DATOS DEL FORMULARIO
    ============================================ */
 
-$id_paciente = $_POST["id_paciente"] ?? "";
-$fecha = $_POST["fecha_turno"] ?? "";
-$horario = $_POST["horario_turno"] ?? "";
-$motivo_consulta = $_POST["motivo_consulta"] ?? "";
-$observaciones = $_POST["observaciones"] ?? "";
-$matricula_profesional = $_POST["matricula_profesional"] ?? "";
+$id_paciente = textoRecibido($_POST["id_paciente"] ?? "");
+$fecha = textoRecibido($_POST["fecha_turno"] ?? "");
+$horario = textoRecibido($_POST["horario_turno"] ?? "");
+$motivo_consulta = textoRecibido($_POST["motivo_consulta"] ?? "");
+$observaciones = textoRecibido($_POST["observaciones"] ?? "");
+$matricula_profesional = textoRecibido($_POST["matricula_profesional"] ?? "");
 
 /* ============================================
    2. VALIDAR DATOS OBLIGATORIOS
    ============================================ */
 
 if (
-    empty($id_paciente) ||
-    empty($fecha) ||
-    empty($horario) ||
-    empty($motivo_consulta) ||
-    empty($matricula_profesional)
+    !esIdPositivo($id_paciente) ||
+    !esFechaValida($fecha) ||
+    !esHorarioValido($horario) ||
+    $motivo_consulta === "" ||
+    !esIdPositivo($matricula_profesional)
 ) {
     echo json_encode([
         "exito" => false,
         "mensaje" => "Faltan datos obligatorios para guardar el turno."
+    ]);
+    exit;
+}
+
+$motivos_permitidos = ["Consulta general", "Vacunación", "Cirugías", "Análisis"];
+
+if (!in_array($motivo_consulta, $motivos_permitidos, true) || $fecha < date("Y-m-d")) {
+    echo json_encode([
+        "exito" => false,
+        "mensaje" => "La fecha o el tipo de consulta no son válidos."
     ]);
     exit;
 }

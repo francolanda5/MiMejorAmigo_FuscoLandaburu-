@@ -6,11 +6,12 @@
 header("Content-Type: application/json; charset=utf-8");
 
 require_once "conexion.php";
+require_once "validaciones.php";
 
-$matricula_profesional = $_GET["matricula"] ?? "";
-$fecha = $_GET["fecha"] ?? "";
+$matricula_profesional = textoRecibido($_GET["matricula"] ?? "");
+$fecha = textoRecibido($_GET["fecha"] ?? "");
 
-if (empty($matricula_profesional)) {
+if (!esIdPositivo($matricula_profesional)) {
     echo json_encode([
         "exito" => false,
         "mensaje" => "Falta la matrícula del profesional."
@@ -18,7 +19,7 @@ if (empty($matricula_profesional)) {
     exit;
 }
 
-if (empty($fecha)) {
+if (!esFechaValida($fecha) || $fecha < date("Y-m-d")) {
     echo json_encode([
         "exito" => false,
         "mensaje" => "Falta la fecha del turno."

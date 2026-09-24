@@ -21,7 +21,7 @@ $fecha_actual = date("Y-m-d");
         rel="stylesheet">
 
     <!-- CSS propio -->
-    <link rel="stylesheet" href="css/turnos.css">
+    <link rel="stylesheet" href="css/turnos.css?v=20260916-2">
 </head>
 
 <body>
@@ -30,7 +30,7 @@ $fecha_actual = date("Y-m-d");
 
         <!-- ENCABEZADO -->
         <header class="encabezado-turnos">
-            <a href="inicio.html" class="boton-volver" aria-label="Volver al inicio">‹</a>
+            <a href="inicio.php" class="boton-volver" aria-label="Volver al inicio">‹</a>
 
             <div class="titulos-turnos">
                 <p>Mi Mejor Amigo</p>
@@ -56,13 +56,14 @@ $fecha_actual = date("Y-m-d");
                 <div class="campo-form">
                     <label for="nombre_apellido">Nombre y apellido</label>
                     <input type="text" id="nombre_apellido" name="nombre_apellido"
-                        placeholder="Tu nombre completo" autocomplete="name" required>
+                        placeholder="Tu nombre completo" autocomplete="name" minlength="3" maxlength="80"
+                        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]{3,80}" required>
                 </div>
 
                 <div class="campo-form">
                     <label for="dni_dueno">DNI</label>
                     <input type="number" id="dni_dueno" name="dni_dueno"
-                        placeholder="Tu DNI" inputmode="numeric" required>
+                        placeholder="Tu DNI" inputmode="numeric" min="1000000" max="99999999" required>
                 </div>
 
                 <div class="campo-form">
@@ -74,7 +75,8 @@ $fecha_actual = date("Y-m-d");
                 <div class="campo-form">
                     <label for="telefono">Teléfono</label>
                     <input type="tel" id="telefono" name="telefono"
-                        placeholder="Tu teléfono" autocomplete="tel" required>
+                        placeholder="Tu teléfono" autocomplete="tel" minlength="8" maxlength="20"
+                        pattern="[0-9 +()\-]{8,20}" required>
                 </div>
 
                 <p id="mensaje-error-datos" class="mensaje-error" aria-live="polite"></p>
@@ -336,7 +338,7 @@ $fecha_actual = date("Y-m-d");
                     <strong id="mail-confirmacion" class="mail-confirmacion" hidden></strong>
                 </p>
 
-                <a href="inicio.html" class="boton-principal link-inicio">
+                <a href="inicio.php" class="boton-principal link-inicio">
                     Volver al inicio
                 </a>
             </article>
@@ -345,7 +347,7 @@ $fecha_actual = date("Y-m-d");
 
     </main>
 
-    <script src="js/turnos.js"></script>
+    <script src="js/turnos.js?v=20260916-2"></script>
 </body>
 
 </html>

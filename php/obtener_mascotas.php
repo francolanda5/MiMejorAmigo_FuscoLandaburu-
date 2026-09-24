@@ -6,11 +6,13 @@
 header("Content-Type: application/json; charset=utf-8");
 
 require_once "conexion.php";
+require_once "validaciones.php";
 
-$correo = $_GET["correo"] ?? "";
-$telefono = $_GET["telefono"] ?? "";
+$correo = strtolower(textoRecibido($_GET["correo"] ?? ""));
+$telefono = textoRecibido($_GET["telefono"] ?? "");
+$dni = textoRecibido($_GET["dni"] ?? "");
 
-if (empty($correo) && empty($telefono)) {
+if (!filter_var($correo, FILTER_VALIDATE_EMAIL) || !esTelefonoValido($telefono) || !esDniValido($dni)) {
     echo json_encode([
         "exito" => false,
         "mensaje" => "Faltan datos para buscar las mascotas."
@@ -28,11 +30,13 @@ try {
         FROM `dueño`
         INNER JOIN `mascota`
             ON `dueño`.`dni_dueño` = `mascota`.`dni_dueño`
-        WHERE `dueño`.`mail` = :correo
-           OR `dueño`.`teléfono` = :telefono
+        WHERE `dueño`.`dni_dueño` = :dni
+          AND `dueño`.`mail` = :correo
+          AND `dueño`.`teléfono` = :telefono
         ORDER BY `mascota`.`nombre` ASC
     ");
 
+    $consulta->bindParam(":dni", $dni);
     $consulta->bindParam(":correo", $correo);
     $consulta->bindParam(":telefono", $telefono);
 

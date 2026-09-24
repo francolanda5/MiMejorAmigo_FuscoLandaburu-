@@ -6,19 +6,20 @@
 session_start();
 
 require_once "conexion.php";
+require_once "validaciones.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../login_profesional.php?estado=error");
     exit;
 }
 
-$matricula_profesional = $_POST["matricula_profesional"] ?? "";
-$clave_acceso = $_POST["clave_acceso"] ?? "";
+$matricula_profesional = textoRecibido($_POST["matricula_profesional"] ?? "");
+$clave_acceso = textoRecibido($_POST["clave_acceso"] ?? "");
 
 $matricula_profesional = trim($matricula_profesional);
 $clave_acceso = trim($clave_acceso);
 
-if (empty($matricula_profesional) || empty($clave_acceso)) {
+if (!esIdPositivo($matricula_profesional) || $clave_acceso === "") {
     header("Location: ../login_profesional.php?estado=error");
     exit;
 }

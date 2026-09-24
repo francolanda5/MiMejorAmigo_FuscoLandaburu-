@@ -348,7 +348,7 @@ body {
 
 .avatar-mascota img,
 .avatar-mascota {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .avatar-mascota-vacio {

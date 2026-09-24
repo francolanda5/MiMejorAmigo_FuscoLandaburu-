@@ -11,6 +11,7 @@ if (!isset($_SESSION["profesional_logueado"]) || $_SESSION["profesional_logueado
 }
 
 require_once "conexion.php";
+require_once "validaciones.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../admin_consultas.php?estado=error");
@@ -21,17 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
    1. RECIBIR DATOS DEL FORMULARIO
    ============================================ */
 
-$id_consulta = $_POST["id_consulta"] ?? "";
-$diagnostico = $_POST["diagnostico"] ?? "";
-$tratamiento = $_POST["tratamiento"] ?? "";
-$pago = $_POST["pago"] ?? "0";
-$estado_consulta = $_POST["estado_consulta"] ?? "Pendiente";
+$id_consulta = textoRecibido($_POST["id_consulta"] ?? "");
+$diagnostico = textoRecibido($_POST["diagnostico"] ?? "");
+$tratamiento = textoRecibido($_POST["tratamiento"] ?? "");
+$pago = textoRecibido($_POST["pago"] ?? "0");
+$estado_consulta = textoRecibido($_POST["estado_consulta"] ?? "Pendiente");
 
 /* ============================================
    2. VALIDAR DATOS BÁSICOS
    ============================================ */
 
-if (empty($id_consulta)) {
+if (!esIdPositivo($id_consulta)) {
     header("Location: ../admin_consultas.php?estado=error");
     exit;
 }

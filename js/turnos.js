@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo(0, 0);
 
     redireccionInicio = setTimeout(function () {
-      window.location.href = "inicio.html";
+      window.location.href = "inicio.php";
     }, 4500);
   }
 
@@ -181,13 +181,23 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
 
-    if (dni.length < 6) {
-      mensajeErrorDatos.textContent = "Ingresá un DNI válido.";
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]{3,80}$/.test(nombre)) {
+      mensajeErrorDatos.textContent = "El nombre solo puede contener letras y espacios.";
       return false;
     }
 
-    if (!correo.includes("@")) {
+    if (!/^[0-9]{7,8}$/.test(dni)) {
+      mensajeErrorDatos.textContent = "Ingresá un DNI de 7 u 8 números.";
+      return false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
       mensajeErrorDatos.textContent = "Ingresá un correo electrónico válido.";
+      return false;
+    }
+
+    if (!/^[0-9 +()\-]{8,20}$/.test(telefono)) {
+      mensajeErrorDatos.textContent = "Ingresá un teléfono válido.";
       return false;
     }
 
@@ -481,7 +491,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
 
-    if (Number(edadMascota) < 0) {
+    if (!/^\d+$/.test(edadMascota) || Number(edadMascota) > 100) {
       mensajeNuevaMascota.textContent = "Ingresá una edad válida.";
       return false;
     }

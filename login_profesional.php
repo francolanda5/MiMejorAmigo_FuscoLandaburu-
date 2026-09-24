@@ -38,7 +38,7 @@ $estado = $_GET["estado"] ?? "";
         <section class="card-login-profesional" aria-labelledby="titulo-login-profesional">
 
             <header class="encabezado-login">
-                <a href="inicio.html" class="boton-volver" aria-label="Volver al inicio">‹</a>
+                <a href="inicio.php" class="boton-volver" aria-label="Volver al inicio">‹</a>
 
                 <div>
                     <p>Mi Mejor Amigo</p>
